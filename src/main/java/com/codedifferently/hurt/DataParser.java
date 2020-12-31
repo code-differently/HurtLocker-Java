@@ -14,6 +14,8 @@ public class DataParser {
 
         System.out.println(Arrays.toString(strArr)); //each item split into an array
         Arrays.stream(strArr).forEach(this::createData); //run our below function on each element in our array.
+
+        DataBuilder.createLogFile();
     }
 
     public void createData(String str) {
@@ -24,8 +26,6 @@ public class DataParser {
             String data = m.group(); // this is our match for the regex
             DataBuilder.buildClass(data); // passes our match into buildClass and creates an object for each line in DataBuilder.buildClass()
         }
-
-        DataBuilder.createLogFile(); //calls our createLogFile method... // TODO: 12/31/20 .createLogFile() not printing data.
     }
 
 }

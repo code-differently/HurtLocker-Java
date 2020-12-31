@@ -3,6 +3,7 @@ package com.codedifferently.hurt;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,7 @@ public class DataBuilder {
     public static List<FoodItem> getFoodItemsList() {
         return foodItemList;
     }
+    public static FoodContainers foodContainers = new FoodContainers();
 
     public static void buildClass(String dataStr) {
         List<String> properties = getPair(dataStr); // Creates a List of strings generated with our getPair method below...
@@ -71,16 +73,29 @@ public class DataBuilder {
     }
 
     private static String getPrintedText() {
-        StringBuilder sb = new StringBuilder();
         String output = "";
 
+        foodContainers.fillContainers(getFoodItemsList());
+
         Map<String, Long> names = getAllNames();
-        Map<String, Long> prices = getAllPricesForNames();
+        Map<String, Long> prices = getAllPricesForNames(); //// TODO: 12/31/20 THIS NEEDS TO ONLY GET BACK MILK< COOKIES< APPLES< OR BREAD not ALL.
 
-        output += String.format("Name:   Milk    Seen:%s Times\n", getNameCountByType("milk").get("milk"));
-        output += String.format("============    ============\n");
-        output += String.format("Price:  " + "Milk    " + "Seen:%s Times\n", getNameCountByType("milk").get("milk"));
+        for(Map.Entry<String, Long> header : names.entrySet()) {
+            if(header.getKey().equals("ERROR")) {
+                continue;
+            }
+            output += String.format("Name:  %7s    Seen: %d  Times\n", header.getKey(), header.getValue()); //Header for each item
+            output += String.format("==============    ==============\n");
 
+            for(Map.Entry<String, Long> price : prices.entrySet()) {
+                if(price.getKey().equals("ERROR")) {
+                    continue;
+                }
+                output += String.format("Price:  %6s    Seen: %d  Times\n", price.getKey(), price.getValue());
+                output += String.format("--------------    --------------\n");
+            }
+            output += "\n";
+        }
 
         System.out.println(output);
         return output;
@@ -90,7 +105,7 @@ public class DataBuilder {
         return  foodItemList
                 .stream()
                 .map(FoodItem::getName)
-                //.filter(name-> !name.equals("EMPTY"))
+                //.filter(name-> !name.equals("ERROR"))
                 .collect(Collectors.groupingBy(
                         name->name,
                         Collectors.counting()
@@ -101,7 +116,7 @@ public class DataBuilder {
         return  foodItemList
                 .stream()
                 .map(FoodItem::getPrice)
-                //.filter(price-> !price.equals("EMPTY"))
+                //.filter(price-> !price.equals("ERROR"))
                 .collect(Collectors.groupingBy(
                         price->price,
                         Collectors.counting()
@@ -119,11 +134,10 @@ public class DataBuilder {
                 ));
     }
 
-    public static Map<String, Long> getPriceCountByType(String price) {
+    public static Map<String, Long> getPriceCountByType() {
         return  foodItemList
                 .stream()
                 .map(FoodItem::getName)
-                .filter(name-> name.equals(price))
                 .collect(Collectors.groupingBy(
                         prices->prices,
                         Collectors.counting()

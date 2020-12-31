@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FoodContainers implements ContainerMethods{
+
     private List<FoodItem> apples;
     private List<FoodItem> bread;
     private List<FoodItem> cookies;
@@ -15,6 +16,7 @@ public class FoodContainers implements ContainerMethods{
         bread = new ArrayList<>();
         cookies = new ArrayList<>();
         milk = new ArrayList<>();
+        errors = new ArrayList<>();
     }
 
     public List<FoodItem> getApples() {
@@ -33,6 +35,10 @@ public class FoodContainers implements ContainerMethods{
 
     public List<FoodItem> getMilk() {
         return milk;
+    }
+
+    public List<FoodItem> getErrors() {
+        return errors;
     }
 
     @Override

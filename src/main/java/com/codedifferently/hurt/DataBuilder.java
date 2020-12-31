@@ -32,13 +32,13 @@ public class DataBuilder {
 
         for (int i = 0; i < dataArr.length; i += 2) {
             try {
-                System.out.println(dataArr[i] + ": " + dataArr[i + 1]);
+                //System.out.println(dataArr[i] + ": " + dataArr[i + 1]);
                 properties.add(dataArr[i + 1]);
             } catch (IndexOutOfBoundsException e) {
                 errorsCount++;
             }
         }
-        System.out.println(count++);
+        //System.out.println(count++);
         return properties;
     }
 
@@ -76,7 +76,7 @@ public class DataBuilder {
         output += String.format("Errors            Seen:  %d Times\n", foodContainers.getErrors().size());
 
         output += "\n";
-        System.out.println(output);
+        //System.out.println(output); //// TODO: 12/31/20 Enable this or check output2 to see output.
         return output;
     }
 
@@ -95,7 +95,6 @@ public class DataBuilder {
             if(price.getKey().equals("ERROR")) continue;
             innerOutput += String.format("Price:  %6s    Seen: %d  Times\n", price.getKey(), price.getValue());
             innerOutput += String.format("--------------    --------------\n");
-            System.out.println(price);
         }
         innerOutput += "\n";
         return innerOutput;

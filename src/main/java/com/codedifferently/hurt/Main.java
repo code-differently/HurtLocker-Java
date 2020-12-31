@@ -18,9 +18,10 @@ public class Main {
         dataParser.parse(rawData);
 
         // So now we need to build data from this set of food items
-        DataBuilder.getFoodItemsList().forEach(ele-> System.out.println(ele.getName()));
+        //DataBuilder.getFoodItemsList().forEach(ele-> System.out.println(ele.getType()));
 
-        // this also shows that we need to standardize any cookie 0s
-        // and if any blank names appear.. remove them or don't add them...
+        System.out.println(DataBuilder.getAllNames());
+        System.out.println(DataBuilder.getAllPricesForNames());
+
     }
 }

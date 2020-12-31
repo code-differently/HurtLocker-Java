@@ -21,10 +21,11 @@ public class DataParser {
 
         Matcher m = Pattern.compile("\\w+.*\\w+").matcher(str);
         while (m.find()) {
-            String data = m.group();
-            DataBuilder.buildClass(data); // takes each formatted line and creates an object in DataBuilder
+            String data = m.group(); // this is our match for the regex
+            DataBuilder.buildClass(data); // passes our match into buildClass and creates an object for each line in DataBuilder.buildClass()
         }
-        DataBuilder.createLogFile();
+
+        DataBuilder.createLogFile(); //calls our createLogFile method... // TODO: 12/31/20 .createLogFile() not printing data.
     }
 
 }

@@ -3,12 +3,12 @@ package com.codedifferently.hurt;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class DataBuilder {
+
+    static int count = 0;
 
     static List<FoodItem> foodItemList = new ArrayList<>();
     static int errorsCount = 0;
@@ -20,25 +20,39 @@ public class DataBuilder {
     public static void buildClass(String dataStr) {
         List<String> properties = getPair(dataStr); // Creates a List of strings generated with our getPair method below...
 
-        FoodItem foodItem = new FoodItem(properties.get(0), properties.get(1), properties.get(2), properties.get(3));
-        //uses our strings to create a new FoodItem from each one | Name, Price, Type, Expiration |
+        FoodItem foodItem = new FoodItem(properties.get(0), properties.get(1), properties.get(2), properties.get(3)); //uses our strings to create a new FoodItem from each one | Name, Price, Type, Expiration |
         foodItemList.add(foodItem); // add the objects to our getDataList above...
     }
+
+//    public static void countOccurances(FoodItem foodItem) {
+//
+//    }
 
     private static List<String> getPair(String data) {
         List<String> properties = new ArrayList<>();
 
-        String[] dataArr = data.split("(;|:|\\^|%|\\*|@|!)");
+        String[] sections = data.split("(;|:|\\^|%|\\*|@|!)");
+        String[] dataArr = removeOddStrings(sections);             //// TODO: 12/31/20 changed this to call removeOddStrings
+
         for (int i = 0; i < dataArr.length; i += 2) {
             try {
                 System.out.println(dataArr[i] + ": " + dataArr[i + 1]);
+
                 properties.add(dataArr[i + 1]);
             } catch (IndexOutOfBoundsException e) {
                 errorsCount++;
             }
         }
-        System.out.println("\n");
+        System.out.println(count++);
         return properties;
+    }
+
+    public static String[] removeOddStrings(String[] strings) { // // TODO: 12/31/20 this just removed co0kies, improve?
+        for(int i = 0; i < strings.length; i++) {
+            if(strings[i].equals("co0kies")) strings[i] = "cookies";
+            if(strings[i].equals("")) strings[i] = "ERROR";
+        }
+        return strings;
     }
 
     public static void createLogFile() {
@@ -57,63 +71,66 @@ public class DataBuilder {
     }
 
     private static String getPrintedText() {
+        StringBuilder sb = new StringBuilder();
         String output = "";
-        Map<String, Integer> names = getAllNames();
-        for (String name : names.keySet()) {
-            Map<String, Integer> prices = getAllPricesForNames(name);
-        }
-//        for (Data data : dataList) {
-//            if (data.getName() == "") {
-//                System.out.println("YES THIS IS BROKEN");
-//                break;
-//            }
-//
-//            output += " " + data.getName();
-//            output += " " + data.getPrice();
-//            output += " " + data.getType();
-//            output += " " + data.getExpiration();
-//            output += "\n";
-//        }
+
+        Map<String, Long> names = getAllNames();
+        Map<String, Long> prices = getAllPricesForNames();
+
+        output += String.format("Name:   Milk    Seen:%s Times\n", getNameCountByType("milk").get("milk"));
+        output += String.format("============    ============\n");
+        output += String.format("Price:  " + "Milk    " + "Seen:%s Times\n", getNameCountByType("milk").get("milk"));
+
+
+        System.out.println(output);
         return output;
     }
 
-    private static Map<String, Integer> getAllNames() {
-        // Name, times appeared
-        Map<String, Integer> map = new HashMap<>();
-
-        for (FoodItem foodItem : foodItemList) {
-            if (foodItem.getName() == "") continue;
-
-            if (map.containsKey(foodItem.getName())) {
-                int timesAppeared = map.get(foodItem.getName());
-                map.put(foodItem.getName(), ++timesAppeared);
-            } else {
-                map.put(foodItem.getName(), 1);
-            }
-        }
-        return map;
+    public static Map<String, Long> getAllNames() {
+        return  foodItemList
+                .stream()
+                .map(FoodItem::getName)
+                //.filter(name-> !name.equals("EMPTY"))
+                .collect(Collectors.groupingBy(
+                        name->name,
+                        Collectors.counting()
+                ));
     }
 
-    private static Map<String, Integer> getAllPricesForNames(String name) {
-        // Price, times appeared
-        Map<String, Integer> map = new HashMap<>();
-
-        for (FoodItem foodItem : foodItemList) {
-            if (foodItem.getPrice() == "") continue;
-
-            if (map.containsKey(foodItem.getPrice())) {
-                int timesAppeared = map.get(foodItem.getPrice());
-                map.put(foodItem.getPrice(), ++timesAppeared);
-            } else {
-                map.put(foodItem.getPrice(), 1);
-            }
-        }
-        return map;
+    public static Map<String, Long> getAllPricesForNames() {
+        return  foodItemList
+                .stream()
+                .map(FoodItem::getPrice)
+                //.filter(price-> !price.equals("EMPTY"))
+                .collect(Collectors.groupingBy(
+                        price->price,
+                        Collectors.counting()
+                ));
     }
 
-//    public static Map<String, Integer> getNames() {
-//
-//    }
+    public static Map<String, Long> getNameCountByType(String type) {
+        return  foodItemList
+                .stream()
+                .map(FoodItem::getName)
+                .filter(name-> name.equals(type))
+                .collect(Collectors.groupingBy(
+                        types->types,
+                        Collectors.counting()
+                ));
+    }
+
+    public static Map<String, Long> getPriceCountByType(String price) {
+        return  foodItemList
+                .stream()
+                .map(FoodItem::getName)
+                .filter(name-> name.equals(price))
+                .collect(Collectors.groupingBy(
+                        prices->prices,
+                        Collectors.counting()
+                ));
+    }
+
+
 
 }
 

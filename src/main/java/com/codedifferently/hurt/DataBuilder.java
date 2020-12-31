@@ -10,20 +10,19 @@ import java.util.Map;
 
 public class DataBuilder {
 
-    static List<Data> dataList = new ArrayList<>();
+    static List<FoodItem> foodItemList = new ArrayList<>();
     static int errorsCount = 0;
 
-    public static List<Data> getDataList() {
-        return dataList;
+    public static List<FoodItem> getFoodItemsList() {
+        return foodItemList;
     }
 
     public static void buildClass(String dataStr) {
-        List<String> properties = getPair(dataStr);
+        List<String> properties = getPair(dataStr); // Creates a List of strings generated with our getPair method below...
 
-        Data data = new Data(properties.get(0), properties.get(1), properties.get(2), properties.get(3));
-        dataList.add(data);
-
-        System.out.println(dataList.size());
+        FoodItem foodItem = new FoodItem(properties.get(0), properties.get(1), properties.get(2), properties.get(3));
+        //uses our strings to create a new FoodItem from each one | Name, Price, Type, Expiration |
+        foodItemList.add(foodItem); // add the objects to our getDataList above...
     }
 
     private static List<String> getPair(String data) {
@@ -38,6 +37,7 @@ public class DataBuilder {
                 errorsCount++;
             }
         }
+        System.out.println("\n");
         return properties;
     }
 
@@ -60,10 +60,7 @@ public class DataBuilder {
         String output = "";
         Map<String, Integer> names = getAllNames();
         for (String name : names.keySet()) {
-            System.out.println(name);
             Map<String, Integer> prices = getAllPricesForNames(name);
-            System.out.println(names);
-            System.out.println(prices);
         }
 //        for (Data data : dataList) {
 //            if (data.getName() == "") {
@@ -84,14 +81,14 @@ public class DataBuilder {
         // Name, times appeared
         Map<String, Integer> map = new HashMap<>();
 
-        for (Data data : dataList) {
-            if (data.getName() == "") continue;
+        for (FoodItem foodItem : foodItemList) {
+            if (foodItem.getName() == "") continue;
 
-            if (map.containsKey(data.getName())) {
-                int timesAppeared = map.get(data.getName());
-                map.put(data.getName(), ++timesAppeared);
+            if (map.containsKey(foodItem.getName())) {
+                int timesAppeared = map.get(foodItem.getName());
+                map.put(foodItem.getName(), ++timesAppeared);
             } else {
-                map.put(data.getName(), 1);
+                map.put(foodItem.getName(), 1);
             }
         }
         return map;
@@ -101,18 +98,22 @@ public class DataBuilder {
         // Price, times appeared
         Map<String, Integer> map = new HashMap<>();
 
-        for (Data data : dataList) {
-            if (data.getPrice() == "") continue;
+        for (FoodItem foodItem : foodItemList) {
+            if (foodItem.getPrice() == "") continue;
 
-            if (map.containsKey(data.getPrice())) {
-                int timesAppeared = map.get(data.getPrice());
-                map.put(data.getPrice(), ++timesAppeared);
+            if (map.containsKey(foodItem.getPrice())) {
+                int timesAppeared = map.get(foodItem.getPrice());
+                map.put(foodItem.getPrice(), ++timesAppeared);
             } else {
-                map.put(data.getPrice(), 1);
+                map.put(foodItem.getPrice(), 1);
             }
         }
         return map;
     }
+
+//    public static Map<String, Integer> getNames() {
+//
+//    }
 
 }
 

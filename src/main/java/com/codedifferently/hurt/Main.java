@@ -2,9 +2,6 @@ package com.codedifferently.hurt;
 
 import org.apache.commons.io.IOUtils;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class Main {
 
     public String readRawDataToString() throws Exception{
@@ -14,12 +11,16 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception{
-        String output = (new Main()).readRawDataToString();
-        System.out.println(output);
-
         Main main = new Main();
-        DataParser dp = new DataParser();
+        DataParser dataParser = new DataParser();
+
         String rawData = main.readRawDataToString();
-        dp.parse(rawData);
+        dataParser.parse(rawData);
+
+        // So now we need to build data from this set of food items
+        DataBuilder.getFoodItemsList().forEach(ele-> System.out.println(ele.getName()));
+
+        // this also shows that we need to standardize any cookie 0s
+        // and if any blank names appear.. remove them or don't add them...
     }
 }

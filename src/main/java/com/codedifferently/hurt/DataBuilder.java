@@ -74,13 +74,10 @@ public class DataBuilder {
         output += printOuter(foodContainers.getCookies());
         output += printOuter(foodContainers.getMilk());
 
-        //output += String.format(foodContainers.getErrors().);
-
-        // TODO: 12/31/20 FIX Error Values
-        // // TODO: 12/31/20 FORMAT errors section 
-        // // TODO: 12/31/20 FINISHED!!! 
+        output += String.format("Errors            Seen:  %d Times\n", foodContainers.getErrors().size());
 
         output += "\n";
+        System.out.println(output);
         return output;
     }
 
@@ -96,6 +93,7 @@ public class DataBuilder {
         String innerOutput = "";
         Map<String, Long> map = getPriceCountByType(foodItems);
         for(Map.Entry<String, Long> price : map.entrySet()) {
+            if(price.getKey().equals("ERROR")) continue;
             innerOutput += String.format("Price:  %6s    Seen: %d  Times\n", price.getKey(), price.getValue());
             innerOutput += String.format("--------------    --------------\n");
             System.out.println(price);
@@ -104,61 +102,6 @@ public class DataBuilder {
         return innerOutput;
     }
 
-//        Map<String, Long> names = getAllNames();
-//        Map<String, Long> prices = getAllPricesForNames(); ////
-//
-//        for(Map.Entry<String, Long> header : names.entrySet()) {
-//            if(header.getKey().equals("ERROR")) {
-//                continue;
-//            }
-//            output += String.format("Name:  %7s    Seen: %d  Times\n", header.getKey(), header.getValue()); //Header for each item
-//            output += String.format("==============    ==============\n");
-//
-//
-//            for(Map.Entry<String, Long> price : prices.entrySet()) {
-//                output += String.format("Price:  %6s    Seen: %d  Times\n", price.getKey(), price.getValue());
-//                output += String.format("--------------    --------------\n");
-//            }
-//            output += "\n";
-//        }
-
-//        System.out.println(output);
-//        return output;
-//    }
-
-
-    public static Map<String, Long> getAllNames() {
-        return  foodItemList
-                .stream()
-                .map(FoodItem::getName)
-                //.filter(name-> !name.equals("ERROR"))
-                .collect(Collectors.groupingBy(
-                        name->name,
-                        Collectors.counting()
-                ));
-    }
-
-    public static Map<String, Long> getAllPricesForNames() {
-        return  foodItemList
-                .stream()
-                .map(FoodItem::getPrice)
-                //.filter(price-> !price.equals("ERROR"))
-                .collect(Collectors.groupingBy(
-                        price->price,
-                        Collectors.counting()
-                ));
-    }
-
-    public static Map<String, Long> getNameCountByType(String type) {
-        return  foodItemList
-                .stream()
-                .map(FoodItem::getName)
-                .filter(name-> name.equals(type))
-                .collect(Collectors.groupingBy(
-                        types->types,
-                        Collectors.counting()
-                ));
-    }
 
     public static Map<String, Long> getPriceCountByType(List<FoodItem> foodItemList) {
         return  foodItemList

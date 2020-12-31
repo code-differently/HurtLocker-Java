@@ -19,12 +19,8 @@ Name:     milk    Seen: 8  Times
 ==============    ==============
 Price:    1.23    Seen: 1  Times
 --------------    --------------
-Price:   ERROR    Seen: 2  Times
---------------    --------------
 Price:    3.23    Seen: 5  Times
 --------------    --------------
 
-Price:    3.23    Seen: 2  Times
---------------    --------------
-
+Errors            Seen:  2 Times
 

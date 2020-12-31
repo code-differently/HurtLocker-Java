@@ -52,7 +52,6 @@ public class DataBuilder {
 
     public static void createLogFile() {
         File file = new File("output2.txt");
-
         try {
             String output = getPrintedText();
 

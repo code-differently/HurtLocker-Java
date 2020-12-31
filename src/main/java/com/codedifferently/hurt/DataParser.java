@@ -8,13 +8,8 @@ public class DataParser {
 
     public void parse(String input) {
         input = input.toLowerCase();
-
-        System.out.println(input); //data before parsing
         String[] strArr = input.split("##");
-
-        System.out.println(Arrays.toString(strArr)); //each item split into an array
         Arrays.stream(strArr).forEach(this::createData); //run our below function on each element in our array.
-
         DataBuilder.createLogFile();
     }
 

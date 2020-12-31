@@ -2,9 +2,6 @@ package com.codedifferently.hurt;
 
 import org.apache.commons.io.IOUtils;
 
-import java.util.Map;
-
-import static com.codedifferently.hurt.DataBuilder.getPriceCountByType;
 
 public class Main {
 

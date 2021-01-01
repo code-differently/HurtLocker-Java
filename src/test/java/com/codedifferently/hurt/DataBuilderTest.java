@@ -6,8 +6,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
-
 public class DataBuilderTest {
     public FoodContainers foodContainers;
     DataParser dataParser;
@@ -44,6 +42,14 @@ public class DataBuilderTest {
 
     @Test
     public void removeOddStrings() {
+        String[] strings = {"co0kies", "c00kies", "", "c0okies"};
+        System.out.println(Arrays.toString(strings));
+
+        String actual = Arrays.toString(DataBuilder.removeOddStrings(strings));
+        String expected = "[cookies, cookies, ERROR, cookies]";
+        System.out.println(actual);
+
+        Assert.assertEquals(expected, actual);
     }
 
     @Test

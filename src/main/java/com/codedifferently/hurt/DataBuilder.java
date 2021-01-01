@@ -21,10 +21,10 @@ public class DataBuilder {
         return foodItem; //return for testing
     }
 
-    private static List<String> getPair(String data) {
+    public static List<String> getPair(String data) {
         List<String> properties = new ArrayList<>();
 
-        String[] sections = data.split("(;|:|\\^|%|\\*|@|!)");
+        String[] sections = data.split("([;:^%*@!])");
         String[] dataArr = removeOddStrings(sections);
 
         for (int i = 0; i < dataArr.length; i += 2) {
@@ -40,14 +40,14 @@ public class DataBuilder {
 
     public static String[] removeOddStrings(String[] strings) {
         for (int i = 0; i < strings.length; i++) {
-            if (strings[i].equals("co0kies")) strings[i] = "cookies";
+            if (strings[i].equals("co0kies") || strings[i].equals("c00kies") || strings[i].equals("c0okies")) strings[i] = "cookies";
             if (strings[i].equals("")) strings[i] = "ERROR";
         }
         return strings;
     }
 
     public static void createLogFile() {
-        File file = new File("output2.txt");
+        File file = new File("finalOutput.txt");
         try {
             String output = getPrintedText();
 
@@ -55,45 +55,48 @@ public class DataBuilder {
             writer.write(output);
             writer.flush();
             writer.close();
+
+            System.out.println(output);
+
         } catch (IOException e) {
-            System.out.println("FAILED");
+            System.out.println("Failed To Create Log File!");
         }
     }
 
     private static String getPrintedText() {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         foodContainers.fillContainers(getFoodItemsList());
 
-        output += printOuter(foodContainers.getApples());
-        output += printOuter(foodContainers.getBread());
-        output += printOuter(foodContainers.getCookies());
-        output += printOuter(foodContainers.getMilk());
+        output.append(printOuter(foodContainers.getApples()));
+        output.append(printOuter(foodContainers.getBread()));
+        output.append(printOuter(foodContainers.getCookies()));
+        output.append(printOuter(foodContainers.getMilk()));
 
-        output += String.format("Errors            Seen:  %d Times\n", foodContainers.getErrors().size());
+        output.append(String.format("Errors            Seen:  %d Times\n", foodContainers.getErrors().size()));
 
-        output += "\n";
+        output.append("\n");
         //System.out.println(output); //// TODO: 12/31/20 Enable this or check output2 to see output.
-        return output;
+        return output.toString();
     }
 
     private static String printOuter(List<FoodItem> foodItems) {
-        String outerOutput = "";
-        outerOutput += String.format("Name:  %7s    Seen: %d  Times\n", foodItems.get(0).getName(), foodItems.size());
-        outerOutput += String.format("==============    ==============\n");
-        outerOutput += printInner(foodItems);
-        return outerOutput;
+        StringBuilder outerOutput = new StringBuilder();
+        outerOutput.append(String.format("Name:  %7s    Seen: %d  Times\n", foodItems.get(0).getName(), foodItems.size()));
+        outerOutput.append("==============    ==============\n");
+        outerOutput.append(printInner(foodItems));
+        return outerOutput.toString();
     }
 
     private static String printInner(List<FoodItem> foodItems) {
-        String innerOutput = "";
+        StringBuilder innerOutput = new StringBuilder();
         Map<String, Long> map = getPriceCountByType(foodItems);
         for(Map.Entry<String, Long> price : map.entrySet()) {
             if(price.getKey().equals("ERROR")) continue;
-            innerOutput += String.format("Price:  %6s    Seen: %d  Times\n", price.getKey(), price.getValue());
-            innerOutput += String.format("--------------    --------------\n");
+            innerOutput.append(String.format("Price:  %6s    Seen: %d  Times\n", price.getKey(), price.getValue()));
+            innerOutput.append("--------------    --------------\n");
         }
-        innerOutput += "\n";
-        return innerOutput;
+        innerOutput.append("\n");
+        return innerOutput.toString();
     }
 
 

@@ -14,7 +14,6 @@ public class Main {
     public static void main(String[] args) throws Exception{
         Main main = new Main();
         DataParser dataParser = new DataParser();
-        FoodContainers foodContainers = new FoodContainers();
 
         String rawData = main.readRawDataToString();
         dataParser.parse(rawData);

@@ -56,7 +56,7 @@ public class DataBuilder {
             writer.flush();
             writer.close();
 
-            System.out.println(output);
+            //System.out.println(output); // TODO: 1/1/21 Enable to see console print out of final file. 
 
         } catch (IOException e) {
             System.out.println("Failed To Create Log File!");
@@ -75,16 +75,13 @@ public class DataBuilder {
         output.append(String.format("Errors            Seen:  %d Times\n", foodContainers.getErrors().size()));
 
         output.append("\n");
-        //System.out.println(output); //// TODO: 12/31/20 Enable this or check output2 to see output.
         return output.toString();
     }
 
     private static String printOuter(List<FoodItem> foodItems) {
-        StringBuilder outerOutput = new StringBuilder();
-        outerOutput.append(String.format("Name:  %7s    Seen: %d  Times\n", foodItems.get(0).getName(), foodItems.size()));
-        outerOutput.append("==============    ==============\n");
-        outerOutput.append(printInner(foodItems));
-        return outerOutput.toString();
+        return String.format("Name:  %7s    Seen: %d  Times\n", foodItems.get(0).getName(), foodItems.size()) +
+                "==============    ==============\n" +
+                printInner(foodItems);
     }
 
     private static String printInner(List<FoodItem> foodItems) {

@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Map;
 
 public class DataBuilderTest {
     public FoodContainers foodContainers;
@@ -52,11 +53,10 @@ public class DataBuilderTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test
-    public void createLogFile() {
-    }
 
     @Test
     public void getPriceCountByType() {
+        Map<String, Long> actual = DataBuilder.getPriceCountByType(DataBuilder.getFoodItemsList());
+        System.out.println(actual);
     }
 }

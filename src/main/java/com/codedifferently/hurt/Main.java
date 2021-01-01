@@ -2,6 +2,7 @@ package com.codedifferently.hurt;
 
 import org.apache.commons.io.IOUtils;
 
+
 public class Main {
 
     public String readRawDataToString() throws Exception{
@@ -16,11 +17,5 @@ public class Main {
 
         String rawData = main.readRawDataToString();
         dataParser.parse(rawData);
-
-        // So now we need to build data from this set of food items
-        DataBuilder.getFoodItemsList().forEach(ele-> System.out.println(ele.getName()));
-
-        // this also shows that we need to standardize any cookie 0s
-        // and if any blank names appear.. remove them or don't add them...
     }
 }

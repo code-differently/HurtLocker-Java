@@ -3,47 +3,51 @@ package com.codedifferently.hurt;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class DataBuilder {
 
     static List<FoodItem> foodItemList = new ArrayList<>();
-    static int errorsCount = 0;
-
-    public static List<FoodItem> getFoodItemsList() {
+    static List<FoodItem> getFoodItemsList() {
         return foodItemList;
     }
+    static FoodContainers foodContainers = new FoodContainers();
 
-    public static void buildClass(String dataStr) {
+    public static FoodItem buildClass(String dataStr) {
         List<String> properties = getPair(dataStr); // Creates a List of strings generated with our getPair method below...
-
-        FoodItem foodItem = new FoodItem(properties.get(0), properties.get(1), properties.get(2), properties.get(3));
-        //uses our strings to create a new FoodItem from each one | Name, Price, Type, Expiration |
+        FoodItem foodItem = new FoodItem(properties.get(0), properties.get(1), properties.get(2), properties.get(3)); //uses our strings to create a new FoodItem from each one | Name, Price, Type, Expiration |
         foodItemList.add(foodItem); // add the objects to our getDataList above...
+        return foodItem; //return for testing
     }
 
-    private static List<String> getPair(String data) {
+    public static List<String> getPair(String data) {
         List<String> properties = new ArrayList<>();
 
-        String[] dataArr = data.split("(;|:|\\^|%|\\*|@|!)");
+        String[] sections = data.split("([;:^%*@!])");
+        String[] dataArr = removeOddStrings(sections);
+
         for (int i = 0; i < dataArr.length; i += 2) {
             try {
-                System.out.println(dataArr[i] + ": " + dataArr[i + 1]);
+                //System.out.println(dataArr[i] + ": " + dataArr[i + 1]);
                 properties.add(dataArr[i + 1]);
             } catch (IndexOutOfBoundsException e) {
-                errorsCount++;
+                System.out.println("Had An Error!");
             }
         }
-        System.out.println("\n");
         return properties;
     }
 
-    public static void createLogFile() {
-        File file = new File("output2.txt");
+    public static String[] removeOddStrings(String[] strings) {
+        for (int i = 0; i < strings.length; i++) {
+            if (strings[i].equals("co0kies") || strings[i].equals("c00kies") || strings[i].equals("c0okies")) strings[i] = "cookies";
+            if (strings[i].equals("")) strings[i] = "ERROR";
+        }
+        return strings;
+    }
 
+    public static void createLogFile() {
+        File file = new File("finalOutput.txt");
         try {
             String output = getPrintedText();
 
@@ -51,70 +55,57 @@ public class DataBuilder {
             writer.write(output);
             writer.flush();
             writer.close();
+
+            //System.out.println(output); // TODO: 1/1/21 Enable to see console print out of final file. 
+
         } catch (IOException e) {
-            System.out.println("FAILED");
+            System.out.println("Failed To Create Log File!");
         }
     }
 
     private static String getPrintedText() {
-        String output = "";
-        Map<String, Integer> names = getAllNames();
-        for (String name : names.keySet()) {
-            Map<String, Integer> prices = getAllPricesForNames(name);
-        }
-//        for (Data data : dataList) {
-//            if (data.getName() == "") {
-//                System.out.println("YES THIS IS BROKEN");
-//                break;
-//            }
-//
-//            output += " " + data.getName();
-//            output += " " + data.getPrice();
-//            output += " " + data.getType();
-//            output += " " + data.getExpiration();
-//            output += "\n";
-//        }
-        return output;
+        StringBuilder output = new StringBuilder();
+        foodContainers.fillContainers(getFoodItemsList());
+
+        output.append(printOuter(foodContainers.getApples()));
+        output.append(printOuter(foodContainers.getBread()));
+        output.append(printOuter(foodContainers.getCookies()));
+        output.append(printOuter(foodContainers.getMilk()));
+
+        output.append(String.format("Errors            Seen:  %d Times\n", foodContainers.getErrors().size()));
+
+        output.append("\n");
+        return output.toString();
     }
 
-    private static Map<String, Integer> getAllNames() {
-        // Name, times appeared
-        Map<String, Integer> map = new HashMap<>();
-
-        for (FoodItem foodItem : foodItemList) {
-            if (foodItem.getName() == "") continue;
-
-            if (map.containsKey(foodItem.getName())) {
-                int timesAppeared = map.get(foodItem.getName());
-                map.put(foodItem.getName(), ++timesAppeared);
-            } else {
-                map.put(foodItem.getName(), 1);
-            }
-        }
-        return map;
+    private static String printOuter(List<FoodItem> foodItems) {
+        return String.format("Name:  %7s    Seen: %d  Times\n", foodItems.get(0).getName(), foodItems.size()) +
+                "==============    ==============\n" +
+                printInner(foodItems);
     }
 
-    private static Map<String, Integer> getAllPricesForNames(String name) {
-        // Price, times appeared
-        Map<String, Integer> map = new HashMap<>();
-
-        for (FoodItem foodItem : foodItemList) {
-            if (foodItem.getPrice() == "") continue;
-
-            if (map.containsKey(foodItem.getPrice())) {
-                int timesAppeared = map.get(foodItem.getPrice());
-                map.put(foodItem.getPrice(), ++timesAppeared);
-            } else {
-                map.put(foodItem.getPrice(), 1);
-            }
+    private static String printInner(List<FoodItem> foodItems) {
+        StringBuilder innerOutput = new StringBuilder();
+        Map<String, Long> map = getPriceCountByType(foodItems);
+        for(Map.Entry<String, Long> price : map.entrySet()) {
+            if(price.getKey().equals("ERROR")) continue;
+            innerOutput.append(String.format("Price:  %6s    Seen: %d  Times\n", price.getKey(), price.getValue()));
+            innerOutput.append("--------------    --------------\n");
         }
-        return map;
+        innerOutput.append("\n");
+        return innerOutput.toString();
     }
 
-//    public static Map<String, Integer> getNames() {
-//
-//    }
 
+    public static Map<String, Long> getPriceCountByType(List<FoodItem> foodItemList) {
+        return  foodItemList
+                .stream()
+                .map(FoodItem::getPrice)
+                .collect(Collectors.groupingBy(
+                        prices->prices,
+                        Collectors.counting()
+                ));
+    }
 }
 
 

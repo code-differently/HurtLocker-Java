@@ -6,25 +6,21 @@ import java.util.regex.Pattern;
 
 public class DataParser {
 
-    public void parse(String input) {
+    public String[] parse(String input) {
         input = input.toLowerCase();
-
-        System.out.println(input); //data before parsing
-        String[] strArr = input.split("##");
-
-        System.out.println(Arrays.toString(strArr)); //each item split into an array
+        String[] strArr = input.split("##"); // returns our data split into lines, lower-cased and standardized.
         Arrays.stream(strArr).forEach(this::createData); //run our below function on each element in our array.
+        DataBuilder.createLogFile();
+        return strArr;
     }
 
     public void createData(String str) {
-        String result = "";
-
         Matcher m = Pattern.compile("\\w+.*\\w+").matcher(str);
-        while (m.find()) {
-            String data = m.group();
-            DataBuilder.buildClass(data); // takes each formatted line and creates an object in DataBuilder
-        }
-        DataBuilder.createLogFile();
-    }
 
+        while (m.find()) {
+            String data = m.group(); // this is our match for the regex
+            //System.out.println(data);
+            DataBuilder.buildClass(data); // passes our match into buildClass and creates an object for each line in DataBuilder.buildClass()
+        }
+    }
 }

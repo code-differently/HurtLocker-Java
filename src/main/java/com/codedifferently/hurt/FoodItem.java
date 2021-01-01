@@ -1,10 +1,10 @@
 package com.codedifferently.hurt;
 
 public class FoodItem {
-    private String name;
-    private String price;
-    private String type;
-    private String expiration;
+    private final String name;
+    private final String price;
+    private final String type;
+    private final String expiration;
 
     public FoodItem(String name, String price, String type, String expiration) {
         this.name = name;
@@ -27,5 +27,15 @@ public class FoodItem {
 
     public String getExpiration() {
         return expiration;
+    }
+
+    @Override
+    public String toString() {
+        return "FoodItem{" +
+                "name='" + name + '\'' +
+                ", price='" + price + '\'' +
+                ", type='" + type + '\'' +
+                ", expiration='" + expiration + '\'' +
+                '}';
     }
 }

@@ -7,21 +7,18 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class DataBuilder {
-    static int count = 0;
-    static int errorsCount = 0;
 
     static List<FoodItem> foodItemList = new ArrayList<>();
-
-    public static List<FoodItem> getFoodItemsList() {
+    static List<FoodItem> getFoodItemsList() {
         return foodItemList;
     }
+    static FoodContainers foodContainers = new FoodContainers();
 
-    public static FoodContainers foodContainers = new FoodContainers();
-
-    public static void buildClass(String dataStr) {
+    public static FoodItem buildClass(String dataStr) {
         List<String> properties = getPair(dataStr); // Creates a List of strings generated with our getPair method below...
         FoodItem foodItem = new FoodItem(properties.get(0), properties.get(1), properties.get(2), properties.get(3)); //uses our strings to create a new FoodItem from each one | Name, Price, Type, Expiration |
         foodItemList.add(foodItem); // add the objects to our getDataList above...
+        return foodItem; //return for testing
     }
 
     private static List<String> getPair(String data) {
@@ -35,10 +32,9 @@ public class DataBuilder {
                 //System.out.println(dataArr[i] + ": " + dataArr[i + 1]);
                 properties.add(dataArr[i + 1]);
             } catch (IndexOutOfBoundsException e) {
-                errorsCount++;
+                System.out.println("Had An Error!");
             }
         }
-        //System.out.println(count++);
         return properties;
     }
 
@@ -110,9 +106,6 @@ public class DataBuilder {
                         Collectors.counting()
                 ));
     }
-
-
-
 }
 
 

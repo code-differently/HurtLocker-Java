@@ -28,4 +28,14 @@ public class FoodItem {
     public String getExpiration() {
         return expiration;
     }
+
+    @Override
+    public String toString() {
+        return "FoodItem{" +
+                "name='" + name + '\'' +
+                ", price='" + price + '\'' +
+                ", type='" + type + '\'' +
+                ", expiration='" + expiration + '\'' +
+                '}';
+    }
 }

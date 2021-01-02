@@ -1,5 +1,7 @@
 package com.codedifferently.hurt;
 
+import java.util.Map;
+
 public class Item {
 
 	private String name;
@@ -7,7 +9,10 @@ public class Item {
 	private String type;
 	private String expiration;
 
-	public Item(){
+	public Item(Map<String,String> rawDataMap){
+		this.name = rawDataMap.get("name");
+		this.price = rawDataMap.get("price");
+		this.expiration = rawDataMap.get("expiration");
 	}
 
 	public String getName() {

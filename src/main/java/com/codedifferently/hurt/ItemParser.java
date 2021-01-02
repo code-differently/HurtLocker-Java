@@ -1,13 +1,13 @@
 package com.codedifferently.hurt;
 
-import java.util.Arrays;
-
-import static java.util.function.Predicate.isEqual;
 
 public class ItemParser {
 
-	public Item convertStringToItem(String keyPair){
-
+	public Item convertStringToItem(String keyValuePair){
+		/*
+		1.get each value
+		2.insert value into Item object
+		 */
 		return null;
 	}
 
@@ -18,7 +18,7 @@ public class ItemParser {
 		 */
 
 		//replace non related special character as spaces
-		data = data.replaceAll("[%*;@^!]"," ");
+		data = data.replaceAll("[^A-Za-z0-9#/:.]"," ");
 		String[] base = data.split("\\s");
 		String keyValuePair = "";
 		for (String eachPair : base) {

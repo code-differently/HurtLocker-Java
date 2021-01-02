@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ItemParserTest {
 
 	private static String sampleinput = "naMe:Milk;price:3.23;type:Food;expiration:1/25/2016";
+	private static String sampleinput2 = "naMe:;price:3.23;type:Food^expiration:1/04/2016";
 	ItemParser itemParser;
 
 	@Before
@@ -58,4 +59,17 @@ public class ItemParserTest {
 		Assert.assertNotEquals(expected,actual);
 	}
 
+	@Test
+	public void findValueByKeyTest06(){
+		String expected = "type:Food";
+		String actual = itemParser.findValueByKey("type",sampleinput2);
+		Assert.assertEquals(expected,actual);
+	}
+
+	@Test
+	public void findValueByKeyTest07(){
+		String expected = "expiration:1/04/2016";
+		String actual = itemParser.findValueByKey("expiration",sampleinput2);
+		Assert.assertEquals(expected,actual);
+	}
 }

@@ -8,7 +8,6 @@ public class Item {
 	private String expiration;
 
 	public Item(){
-
 	}
 
 	public String getName() {

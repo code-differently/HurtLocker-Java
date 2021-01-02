@@ -17,12 +17,16 @@ public class ItemParser {
 		 */
 		String[] base = data.split("[^0-9a-zA-Z-#-:./]");
 		String keyValuePair = "";
+		int counter = 0;
 
 		for (String eachPair : base) {
-
-			String[] keyValueSplit = eachPair.split(":");
-			if (Arrays.stream(keyValueSplit).anyMatch(isEqual(key))){
-				keyValuePair = eachPair;
+			//separate key from value
+			String[] pairSplit = eachPair.split(":");
+			//grab each key
+			String currentPair = pairSplit[0];
+			//compare key to this key
+			if(key.equalsIgnoreCase(currentPair)){
+				keyValuePair=eachPair;
 			}
 		}
 

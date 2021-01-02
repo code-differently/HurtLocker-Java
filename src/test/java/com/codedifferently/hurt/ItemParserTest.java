@@ -51,4 +51,11 @@ public class ItemParserTest {
 		Assert.assertEquals(expected,actual);
 	}
 
+	@Test
+	public void findValueByKeyTest05(){
+		String expected = "naMe:Milk";
+		String actual = itemParser.findValueByKey("Milk",sampleinput);
+		Assert.assertNotEquals(expected,actual);
+	}
+
 }

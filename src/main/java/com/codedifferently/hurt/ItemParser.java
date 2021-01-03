@@ -7,7 +7,9 @@ public class ItemParser {
 		/*
 		1.get each value
 		2.insert value into Item object
+		3.exception if value is null
 		 */
+
 		return null;
 	}
 

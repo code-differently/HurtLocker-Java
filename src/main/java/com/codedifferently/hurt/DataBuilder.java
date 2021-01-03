@@ -4,14 +4,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class DataBuilder {
 
     static List<FoodItem> foodItemList = new ArrayList<>();
-    static List<FoodItem> getFoodItemsList() {
-        return foodItemList;
-    }
     static FoodContainers foodContainers = new FoodContainers();
 
     public static FoodItem buildClass(String dataStr) {
@@ -29,7 +28,6 @@ public class DataBuilder {
 
         for (int i = 0; i < dataArr.length; i += 2) {
             try {
-                //System.out.println(dataArr[i] + ": " + dataArr[i + 1]);
                 properties.add(dataArr[i + 1]);
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Had An Error!");
@@ -38,10 +36,18 @@ public class DataBuilder {
         return properties;
     }
 
+    static List<FoodItem> getFoodItemsList() {
+        return foodItemList;
+    }
+
     public static String[] removeOddStrings(String[] strings) {
+        String pattern = "c[o0][o0]kies";
+        Pattern pat = Pattern.compile(pattern);
+
         for (int i = 0; i < strings.length; i++) {
-            if (strings[i].equals("co0kies") || strings[i].equals("c00kies") || strings[i].equals("c0okies")) strings[i] = "cookies";
+            Matcher matcher = pat.matcher(strings[i]);
             if (strings[i].equals("")) strings[i] = "ERROR";
+            if (matcher.find()) strings[i] = "cookies";
         }
         return strings;
     }
@@ -56,8 +62,6 @@ public class DataBuilder {
             writer.flush();
             writer.close();
 
-            //System.out.println(output); // TODO: 1/1/21 Enable to see console print out of final file. 
-
         } catch (IOException e) {
             System.out.println("Failed To Create Log File!");
         }
@@ -71,10 +75,9 @@ public class DataBuilder {
         output.append(printOuter(foodContainers.getBread()));
         output.append(printOuter(foodContainers.getCookies()));
         output.append(printOuter(foodContainers.getMilk()));
-
         output.append(String.format("Errors            Seen:  %d Times\n", foodContainers.getErrors().size()));
-
         output.append("\n");
+
         return output.toString();
     }
 

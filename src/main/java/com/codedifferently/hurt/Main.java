@@ -17,5 +17,7 @@ public class Main {
 
         String rawData = main.readRawDataToString();
         dataParser.parse(rawData);
+
+        System.out.println("Check Out finalOutput.txt --- right below gitignore");
     }
 }

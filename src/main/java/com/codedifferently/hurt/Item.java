@@ -15,9 +15,6 @@ public class Item {
 		this.expiration = rawDataMap.get("expiration");
 	}
 
-	public Item() {
-
-	}
 
 	public String getName() {
 		return name;
@@ -49,5 +46,10 @@ public class Item {
 
 	public void setExpiration(String expiration) {
 		this.expiration = expiration;
+	}
+
+	@Override
+	public String toString() {
+		return "Item{" + "name='" + name + '\'' + ", price='" + price + '\'' + ", type='" + type + '\'' + ", expiration='" + expiration + '\'' + '}';
 	}
 }

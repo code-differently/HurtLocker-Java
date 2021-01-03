@@ -1,5 +1,6 @@
 package com.codedifferently.hurt;
 
+import com.codedifferently.hurt.exceptions.ItemParserMissingValueException;
 import org.apache.commons.io.IOUtils;
 
 import java.util.ArrayList;
@@ -17,12 +18,18 @@ public class Main {
         DataReader dataReader = new DataReader();
         ArrayList<String> rawData = dataReader.rawDataReader(output);
         ItemParser itemParser = new ItemParser();
-        rawData.forEach((line) -> System.out.println(
-                itemParser.findValueByKey("name",line) +"\n"+
-                itemParser.findValueByKey("price",line) + "\n"+
-                itemParser.findValueByKey("type",line) + "\n"+
-                itemParser.findValueByKey("expiration",line)
-        ));
+        rawData.forEach((line) -> {
+            try {
+                System.out.println(
+                        itemParser.findValueByKey("name",line) +"\n"+
+                        itemParser.findValueByKey("price",line) + "\n"+
+                        itemParser.findValueByKey("type",line) + "\n"+
+                        itemParser.findValueByKey("expiration",line)
+                );
+            } catch ( ItemParserMissingValueException e) {
+                e.printStackTrace();
+            }
+        });
 
     }
 }

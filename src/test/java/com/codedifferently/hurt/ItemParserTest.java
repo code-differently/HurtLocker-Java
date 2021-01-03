@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ItemParserTest {
@@ -19,7 +21,10 @@ public class ItemParserTest {
 
 	@Test
 	public void convertStringToItemTest(){
-
+		Item item = new Item();
+		String keyValuePair = itemParser.findValueByKey("name",sampleinput);
+		Object actual = itemParser.convertStringToItem(keyValuePair);
+		Assert.assertEquals(item,actual);
 	}
 
 	@Test

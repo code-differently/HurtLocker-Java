@@ -15,6 +15,10 @@ public class Item {
 		this.expiration = rawDataMap.get("expiration");
 	}
 
+	public Item() {
+
+	}
+
 	public String getName() {
 		return name;
 	}

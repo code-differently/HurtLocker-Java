@@ -28,7 +28,6 @@ public class Main {
                 .replaceAll("[\\^%*!@]", ";")
                 .replaceAll(";", ",")
                 .replaceAll(":,", ":null,")
-                //.replaceAll(":", " : ")
                 .split("##");
         return s;
     }

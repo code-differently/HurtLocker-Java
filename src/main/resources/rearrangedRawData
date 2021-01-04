@@ -45,7 +45,7 @@ Cookies     2.25    =     8
 Apples      0.25    =     2
 Apples      0.23    =     2
 ----------------------------
-Expected errors rawData = 4
+Errors in rawData   =     4
 ============================
 Total data points   =    28
 ============================

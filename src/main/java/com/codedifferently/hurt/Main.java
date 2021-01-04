@@ -2,6 +2,7 @@ package com.codedifferently.hurt;
 
 import org.apache.commons.io.IOUtils;
 
+
 public class Main {
 
     public String readRawDataToString() throws Exception{
@@ -11,8 +12,12 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception{
-        String output = (new Main()).readRawDataToString();
-        System.out.println(output);
+        Main main = new Main();
+        DataParser dataParser = new DataParser();
 
+        String rawData = main.readRawDataToString();
+        dataParser.parse(rawData);
+
+        System.out.println("Check Out finalOutput.txt --- right below gitignore");
     }
 }

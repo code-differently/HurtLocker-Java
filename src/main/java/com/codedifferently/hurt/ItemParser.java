@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 public class ItemParser extends DataReader {
 	private ArrayList<String > listOfKey;
+	private Item item;
 
 	public ItemParser(){
 		listOfKey = new ArrayList<>();
@@ -28,7 +29,7 @@ public class ItemParser extends DataReader {
 				itemData.put(key,valueByKey);
 			}
 
-			return new Item(itemData);
+			return this.item = new Item(itemData);
 	}
 
 	public String findValueByKey(String key, String data){
@@ -46,18 +47,25 @@ public class ItemParser extends DataReader {
 			String[] pairSplit = eachPair.split(":");
 			//grab each key
 			String currentPair = pairSplit[0];
+
 			//compare key to this key and throw exception when value is not present
 			if(key.equalsIgnoreCase(currentPair)){
 				try{
 					boolean isNotEmptyValue = pairSplit.length == 2;
 					if(isNotEmptyValue) {
 						value = pairSplit[1];
+						value = value.substring(0,1).toUpperCase()
+								+ value.substring(1).toLowerCase();
+						if(value.matches("(?i)c..kies")){
+							value = value.replace("0","o");
+						}
 					}
 					else throw new ItemParserMissingValueException();
 					}
 				catch (ItemParserMissingValueException valueException){
 					value = null;
 					System.err.println( currentPair +" is " + null);
+					valueException.printStackTrace();
 				}
 			}
 		}

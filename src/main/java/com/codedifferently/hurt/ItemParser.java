@@ -4,7 +4,7 @@ package com.codedifferently.hurt;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ItemParser {
+public class ItemParser extends DataReader {
 	private ArrayList<String > listOfKey;
 
 	public ItemParser(){

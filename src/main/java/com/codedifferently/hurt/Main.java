@@ -14,19 +14,14 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
         String output = (new Main()).readRawDataToString();
-        DataReader dataReader = new DataReader();
-        ArrayList<String> rawData = dataReader.rawDataReader(output);
         ItemParser itemParser = new ItemParser();
-        rawData.forEach((line) -> {
-
-            System.out.println(
-                    itemParser.findValueByKey("name",line) +"\n"+
-                    itemParser.findValueByKey("price",line) + "\n"+
-                    itemParser.findValueByKey("type",line) + "\n"+
-                    itemParser.findValueByKey("expiration",line)
-            );
-
-        });
+        ArrayList<String> rawData = itemParser.rawDataReader(output);
+        rawData.forEach((line) -> System.out.println(
+                itemParser.findValueByKey("name",line) +" "+
+                itemParser.findValueByKey("price",line) + " "+
+                itemParser.findValueByKey("type",line) + " "+
+                itemParser.findValueByKey("expiration",line)
+        ));
 
     }
 }

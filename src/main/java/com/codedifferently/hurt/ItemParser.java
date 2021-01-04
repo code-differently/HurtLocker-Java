@@ -49,15 +49,17 @@ public class ItemParser extends DataReader {
 			//compare key to this key and throw exception when value is not present
 			if(key.equalsIgnoreCase(currentPair)){
 				try{
-					boolean isEmptyValue = pairSplit.length < 2;
-					if(isEmptyValue) throw new ItemParserMissingValueException();
-					value = pairSplit[1];
-				} catch (ItemParserMissingValueException valueException){
-					System.err.println("Value is null");
+					boolean isNotEmptyValue = pairSplit.length == 2;
+					if(isNotEmptyValue) {
+						value = pairSplit[1];
+					}
+					else throw new ItemParserMissingValueException();
+					}
+				catch (ItemParserMissingValueException valueException){
 					value = null;
+					System.err.println( currentPair +" is " + null);
 				}
 			}
-
 		}
 		return value;
 	}

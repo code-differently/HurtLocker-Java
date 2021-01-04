@@ -16,12 +16,15 @@ public class Main {
         String output = (new Main()).readRawDataToString();
         ItemParser itemParser = new ItemParser();
         ArrayList<String> rawData = itemParser.rawDataReader(output);
-        rawData.forEach((line) -> System.out.println(
-                itemParser.findValueByKey("name",line) +" "+
-                itemParser.findValueByKey("price",line) + " "+
-                itemParser.findValueByKey("type",line) + " "+
-                itemParser.findValueByKey("expiration",line)
-        ));
+        rawData.forEach((line) -> {
+            /*
+            arrange the value from rawData to their respective key
+            in the item object
+             */
+            Item item = itemParser.convertStringToItem(line);
+            System.out.println(item.toString());
+            }
+        );
 
     }
 }

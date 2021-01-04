@@ -9,9 +9,11 @@ public class DataParser {
 
     private static TreeMap<String, ArrayList<String>> dataForFinal(TreeMap<String, ArrayList<String>> groceryData, String name, String price, String type, String expiration, String occurrence){
         try{if(!groceryData.get(name).get(0).equals(price))
-            name = name+ "2";}catch (NullPointerException e){}
+            name = name+ "2";}
+        catch (NullPointerException e){}
         try{if(name.contains("2"))
-            occurrence = Integer.toString(Integer.parseInt(groceryData.get(name).get(3)) + 1);}catch (NullPointerException e){occurrence = "1";}
+            occurrence = Integer.toString(Integer.parseInt(groceryData.get(name).get(3)) + 1);}
+        catch (NullPointerException e){occurrence = "1";}
         ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(price,type,expiration,occurrence));
         groceryData.put(name, arrayList);
         return groceryData;

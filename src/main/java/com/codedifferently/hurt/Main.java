@@ -20,7 +20,7 @@ public class Main {
     }
 
     public String[] cleanItUp(String output) {
-        return output.replaceAll("(?i)n..e", "name")
+        return output.replaceAll("(?i)n..e", "Name")
                 .replaceAll("(?i)b...d", "Bread")
                 .replaceAll("(?i)m.lk", "Milk")
                 .replaceAll("(?i)c..k..s", "Cookies")
@@ -43,7 +43,7 @@ public class Main {
             for (String z : temp) {
                 if (z.contains("null"))
                     errCount++;
-                if (z.startsWith("name") || z.startsWith("Price")) {
+                if (z.startsWith("Name") || z.startsWith("Price")) {
                     tempString.append(z).append(",");
                 }
             }

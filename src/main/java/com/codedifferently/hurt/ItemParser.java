@@ -11,11 +11,11 @@ public class ItemParser extends DataReader {
 		listOfKey = new ArrayList<>();
 		listOfKey.add("name");
 		listOfKey.add("price");
-		listOfKey.add("item");
+		listOfKey.add("type");
 		listOfKey.add("expiration");
 	}
 
-	public Item convertStringToItem(String keyValuePairs) {
+	public Item convertStringToItem(String data) {
 		/*
 		1.get each value
 		2.insert value into Item object
@@ -24,8 +24,8 @@ public class ItemParser extends DataReader {
 		HashMap<String,String> itemData = new HashMap<>();
 
 			for (String key:listOfKey) {
-				String value = findValueByKey(key,keyValuePairs);
-				itemData.put(key,value);
+				String valueByKey = findValueByKey(key,data);
+				itemData.put(key,valueByKey);
 			}
 
 			return new Item(itemData);
@@ -40,22 +40,24 @@ public class ItemParser extends DataReader {
 		//replace non related special character as spaces
 		data = data.replaceAll("[^A-Za-z0-9#/:.]"," ");
 		String[] base = data.split("\\s");
-		String value = null;
+		String value = " ";
 		for (String eachPair : base) {
 			//separate key from value
 			String[] pairSplit = eachPair.split(":");
 			//grab each key
 			String currentPair = pairSplit[0];
 			//compare key to this key and throw exception when value is not present
-			try{
-				if(key.equalsIgnoreCase(currentPair)){
-					if(pairSplit.length < 2) throw new ItemParserMissingValueException();
+			if(key.equalsIgnoreCase(currentPair)){
+				try{
+					boolean isEmptyValue = pairSplit.length < 2;
+					if(isEmptyValue) throw new ItemParserMissingValueException();
 					value = pairSplit[1];
+				} catch (ItemParserMissingValueException valueException){
+					System.err.println("Value is null");
+					value = null;
 				}
-			}catch (ItemParserMissingValueException valueException){
-				valueException.printStackTrace();
-				return value;
 			}
+
 		}
 		return value;
 	}

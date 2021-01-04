@@ -16,6 +16,7 @@ public class Main {
     public String readRawDataToString() throws Exception {
         ClassLoader classLoader = getClass().getClassLoader();
         return IOUtils.toString(Objects.requireNonNull(classLoader.getResourceAsStream("RawData.txt")));
+
     }
 
     public String[] cleanItUp(String output) {
@@ -38,8 +39,7 @@ public class Main {
             StringBuilder tempString = new StringBuilder();
 
             // the hash Map-uh will contain a representation of each distinct
-            // occurrence of a price
-
+            // occurrence of a item with it's price
             for (String z : temp) {
                 if (z.contains("null"))
                     errCount++;
@@ -60,7 +60,6 @@ public class Main {
 
         // iterate the map and tally a sum of all distinct instances of the items
         for (String currentKey : itemMap.keySet()) {
-
             int qValue = itemMap.get(currentKey);
             if (currentKey.contains("Apples"))
                 appleCount += qValue;

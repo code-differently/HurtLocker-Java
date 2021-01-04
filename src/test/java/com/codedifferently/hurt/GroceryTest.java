@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class GroceryTest {
-    String inputToTest = "naMe:Milk;price:3.23;type:Food;expiration:1/25/2016";
+    String inputToTest = "naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##";
     @Test
     public void testTakeName(){
         GroceryItem groceryItem = new GroceryItem(inputToTest);

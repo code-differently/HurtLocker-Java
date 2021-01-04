@@ -3,15 +3,7 @@ package com.codedifferently.hurt;
 import java.util.ArrayList;
 
 public class OutputFormater {
-		/*
-		todo
-		x after itemParser convert data to item
-		x track key name for occurrence of similar values
-		track key price for different price for each name
-		x track errors by looking for null values
-		report occurrences on each track
-		output report with each name separated and errors reported last
-		 */
+
 	private ItemParser itemParser;
 	private int errors = 0;
 	private ArrayList<String> actualRawData;

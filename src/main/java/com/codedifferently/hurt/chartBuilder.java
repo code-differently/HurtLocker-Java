@@ -59,17 +59,19 @@ public class chartBuilder {
 
                 line1 = tempString.split(":");
                 line2 = tempString2.split(":");
-                String name = line1[0].trim();
-                String priceName = line2[0].trim();
+                String name = line1[0].trim()+":";
+                System.out.println(name);
+                String priceName = line2[0].trim()+":";
+                String segmentOne = String.format(StringUtils.center( name + "%s", 13), line1[1].trim());
+                System.out.println(segmentOne);
 
-                assemblerString = String.format("\n%s  : %s" + spacer + "seen: %d times", StringUtils.center(name, 5), StringUtils.center(line1[1].trim(), 4), milkCount);
+                assemblerString = String.format("\n%s   %s" + spacer + "seen: %d times", StringUtils.center(name, 6), StringUtils.center(line1[1].trim(), 4), milkCount);
                 System.out.println(assemblerString + assemblerString.length());
 
                 String header = StringUtils.center(StringUtils.center(headerLine, 13) + StringUtils.center(spacer, 8) + StringUtils.center(headerLine, 13), 34);
                 System.out.println(header + header.length());
 
-
-                assemblerString2 = String.format("%s : %s" + spacer + "seen: %s times", StringUtils.center(priceName, 6), StringUtils.center(line2[1].trim(), 4), priceCount);
+                assemblerString2 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
 
                 String rowLine = StringUtils.center(rowDivider + spacer + rowDivider, 32);
                 System.out.println(assemblerString2 + assemblerString2.length());
@@ -83,7 +85,9 @@ public class chartBuilder {
 
                 line2 = tempString2.split(":");
 
-                assemblerString4 = String.format("%s : %s" + spacer + "seen: %s times", StringUtils.center(line2[0], 6), StringUtils.center(line2[1], 4), priceCount);
+                String priceName = line2[0].trim()+":";
+
+                assemblerString4 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
                 System.out.println(assemblerString4 + assemblerString4.length());
             }
         }
@@ -111,17 +115,17 @@ public class chartBuilder {
 
                 line1 = tempString.split(":");
                 line2 = tempString2.split(":");
-                String name = line1[0].trim();
-                String priceName = line2[0].trim();
+                String name = line1[0].trim()+":";
+                String priceName = line2[0].trim()+":";
 
-                assemblerString = String.format("\n%s  :%s" + spacer + "seen: %d times", StringUtils.center(name, 5), StringUtils.center(line1[1].trim(), 4), milkCount);
+
+                assemblerString = String.format("\n%s   %s" + spacer + "seen: %d times", StringUtils.center(name, 5), StringUtils.center(line1[1].trim(), 4), milkCount);
                 System.out.println(assemblerString + assemblerString.length());
 
                 String header = StringUtils.center(StringUtils.center(headerLine, 13) + StringUtils.center(spacer, 8) + StringUtils.center(headerLine, 13), 34);
                 System.out.println(header + header.length());
 
-
-                assemblerString2 = String.format("%s : %s" + spacer + "seen: %s times", StringUtils.center(priceName, 6), StringUtils.center(line2[1].trim(), 4), priceCount);
+                assemblerString2 = String.format("%s   %s" + spacer + "seen: %s times", StringUtils.center(priceName, 6), StringUtils.center(line2[1].trim(), 4), priceCount);
 
                 String rowLine = StringUtils.center(rowDivider + spacer + rowDivider, 32);
                 System.out.println(assemblerString2 + assemblerString2.length());

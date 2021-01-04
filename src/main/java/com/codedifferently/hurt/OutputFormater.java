@@ -61,10 +61,13 @@ public class OutputFormater {
 				}
 			 }
 		}
-		stringBuilder.append("\nname: \t " + name + "\t\t " + "seen: " + seenName +" times\n" + divider2 +" \t \t " + divider2);
-		stringBuilder.append("\nPrice: \t ").append(price).append("\t\t ").append("seen: ").append(firstPrices).append(" times\n").append(divider).append(" \t \t ").append(divider).append("\n");
+		stringBuilder.append(name + "\t\t " + "seen: " + seenName +" times\n" + divider2 +" \t \t " + divider2);
+		stringBuilder.append("\nPrice: \t ").append(price).append("\t\t ").append("seen: ").append(firstPrices)
+				.append(" times\n").append(divider).append(" \t \t ").append(divider).append("\n");
+
 		if(!price2.isEmpty()){
-			stringBuilder.append("Price: \t ").append(price2).append("\t\t ").append("seen: ").append(secondPrice).append(" times\n").append(divider).append(" \t \t ").append(divider).append("\n");
+			stringBuilder.append("Price: \t ").append(price2).append("\t\t ").append("seen: ").append(secondPrice)
+					.append(" times\n").append(divider).append(" \t \t ").append(divider).append("\n");
 		}
 		return stringBuilder.toString();
 	}
@@ -74,10 +77,10 @@ public class OutputFormater {
 		//report names seen, different prices for each name seen, and error
 		String divider1 = "============= \t \t ";
 		StringBuilder output = new StringBuilder();
-		output.append(printLineValue(trimmedList,"milk"));
-		output.append(printLineValue(trimmedList,"bread"));
-		output.append(printLineValue(trimmedList,"cookies"));
-		output.append(printLineValue(trimmedList,"apples"));
+		output.append("\nname: \t ").append(printLineValue(trimmedList,"milk"));
+		output.append("\nname:\t").append(printLineValue(trimmedList,"bread"));
+		output.append("\nname: ").append(printLineValue(trimmedList,"cookies"));
+		output.append("\nname:  ").append(printLineValue(trimmedList,"apples"));
 		output.append("\nErrors         \t \t "+ "seen: " + errors +" times");
 
 

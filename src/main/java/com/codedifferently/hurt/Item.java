@@ -12,6 +12,7 @@ public class Item {
 	public Item(Map<String,String> rawDataMap){
 		this.name = rawDataMap.get("name");
 		this.price = rawDataMap.get("price");
+		this.type = rawDataMap.get("type");
 		this.expiration = rawDataMap.get("expiration");
 	}
 
@@ -50,6 +51,10 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "Item{" + "name='" + name + '\'' + ", price='" + price + '\'' + ", type='" + type + '\'' + ", expiration='" + expiration + '\'' + '}';
+		return
+				"name"+ ':' + name + ' '
+				+ "price" + ':' + price + ' '
+				+ "type" + ':'+ type + ' '
+				+ "expiration" + ':'+ expiration;
 	}
 }

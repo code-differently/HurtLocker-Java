@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Main {
     public static int appleCount = 0;
@@ -12,14 +13,13 @@ public class Main {
     public static int milkCount = 0;
     public static int errCount = 0;
 
-    public String readRawDataToString() throws Exception{
+    public String readRawDataToString() throws Exception {
         ClassLoader classLoader = getClass().getClassLoader();
-        String result = IOUtils.toString(classLoader.getResourceAsStream("RawData.txt"));
-        return result;
+        return IOUtils.toString(Objects.requireNonNull(classLoader.getResourceAsStream("RawData.txt")));
     }
 
     public String[] cleanItUp(String output) {
-        String[] s = output.replaceAll("(?i)n..e", "name")
+        return output.replaceAll("(?i)n..e", "name")
                 .replaceAll("(?i)b...d", "Bread")
                 .replaceAll("(?i)m.lk", "Milk")
                 .replaceAll("(?i)c..k..s", "Cookies")
@@ -29,81 +29,50 @@ public class Main {
                 .replaceAll(";", ",")
                 .replaceAll(":,", ":null,")
                 .split("##");
-        return s;
     }
 
-    public Map<String, Integer> getItemMap(String[] s) {
+    private Map<String, Integer> getItemMap(String[] s) {
         Map<String, Integer> itemMap = new HashMap<>();
-        for (int i = 0; i < s.length; i++) {
-            String[] temp = s[i].split(",");
-            String tempString = "";
+        for (String value : s) {
+            String[] temp = value.split(",");
+            StringBuilder tempString = new StringBuilder();
             for (String z : temp) {
                 if (z.contains("null"))
-                    this.errCount++;
+                    errCount++;
                 if (z.startsWith("name") || z.startsWith("Price")) {
-                    tempString += z + ",";
+                    tempString.append(z).append(",");
                 }
             }
 
-            Integer currentValue = itemMap.get(tempString);
+            Integer currentValue = itemMap.get(tempString.toString());
             if (currentValue == null) {
-                itemMap.put(tempString, 1);
-            }
-            else { int newValue = currentValue + 1;
-                itemMap.replace(tempString, newValue);
+                itemMap.put(tempString.toString(), 1);
+            } else {
+                int newValue = currentValue + 1;
+                itemMap.replace(tempString.toString(), newValue);
             }
         }
 
         for (String qKey : itemMap.keySet()) {
-
             int qValue = itemMap.get(qKey);
-
             if (qKey.contains("Apples"))
-                this.appleCount += qValue;
+                appleCount += qValue;
             if (qKey.contains("Cookies"))
-                this.cookieCount += qValue;
+                cookieCount += qValue;
             if (qKey.contains("Bread"))
-                this.breadCount += qValue;
+                breadCount += qValue;
             if (qKey.contains("Milk"))
                 if (!qKey.contains("null"))
-                    this.milkCount += qValue;
-
+                    milkCount += qValue;
         }
-
-        System.out.println(milkCount);
-        System.out.println(breadCount);
-        System.out.println(cookieCount);
-        System.out.println(appleCount);
-        System.out.printf("Errors = %d%n", errCount);
         return itemMap;
     }
 
-    public int getMilkCount() {
-        return this.milkCount;
-    }
-
-    public int getBreadCount() {
-        return breadCount;
-    }
-
-    public int getAppleCount() {
-        return appleCount;
-    }
-
-    public int getCookieCount() {
-        return cookieCount;
-    }
-
-    public int getErrCount() {
-        return errCount;
-    }
-
-
-
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         String outputString = (new Main()).readRawDataToString();
         String[] s = new Main().cleanItUp(outputString);
         Map<String, Integer> itemMap = new Main().getItemMap(s);
-        String output = new chartBuilder().outputChart(itemMap);
+        String chart = new chartBuilder().outputChart(itemMap);
+        System.out.println(chart);
     }
 }

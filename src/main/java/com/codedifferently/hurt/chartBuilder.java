@@ -1,19 +1,31 @@
 package com.codedifferently.hurt;
 
 import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Map;
+
+import static com.codedifferently.hurt.Main.*;
 
 public class chartBuilder {
     ArrayList<String> milk = new ArrayList<>();
     ArrayList<String> bread = new ArrayList<>();
-    ArrayList<String> cookies = new ArrayList<String>();
-    ArrayList<String> apples = new ArrayList<String>();
-    StringBuilder milkChart = new StringBuilder();
+    ArrayList<String> cookies = new ArrayList<>();
+    ArrayList<String> apples = new ArrayList<>();
+    StringBuilder allCharts = new StringBuilder();
+    String[] tempStrArray;
+    String[] line1;
+    String[] line2;
     String spacer = "        ";
     String rowDivider = "-------------";
     String headerLine = "=============";
-    int milkCount = (new Main()).getMilkCount();
+    String header = StringUtils.center(StringUtils.center(headerLine, 13) + StringUtils.center(spacer, 8) + StringUtils.center(headerLine, 13), 34);
+    String rowLine = StringUtils.center(rowDivider + spacer + rowDivider, 32);
+    String tempString = "";
+    String tempString2 = "";
+    String assemblerString = "";
+    String assemblerString2 = "";
+    String assemblerString3 = "";
 
     public String outputChart(Map<String, Integer> itemMap) {
 
@@ -34,221 +46,147 @@ public class chartBuilder {
         createBreadChart(bread);
         createCookiesChart(cookies);
         createApplesChart(apples);
-        String errorString = String.format("\n%s       " + spacer + "seen: %d times", StringUtils.left("Errors", 13), milkCount);
-        System.out.println(errorString);
-
-        return null;
+        String errorString = String.format("\n%s       " + spacer + "seen: %d times", StringUtils.left("Errors", 13), errCount);
+        allCharts.append(errorString);
+        return allCharts.toString();
     }
 
-    public String createMilkChart(ArrayList<String> milk) {
-        String[] tempStrArray = new String[milk.size()];
-        String[] line1 = new String[milk.size()];
-        String[] line2 = new String[milk.size()];
+    private void createMilkChart(ArrayList<String> milk) {
 
-        String tempString = "";
-        String tempString2 = "";
-        String assemblerString = "";
-        String assemblerString2 = "";
-        String assemblerString3 = "";
-        String assemblerString4 = "";
-
-        for (int i =0; i < milk.size(); i++) {
+        for (int i = 0; i < milk.size(); i++) {
             if (i == 0) {
-                tempStrArray = milk.get(i).toString().split(",");
-                tempString = String.format(tempStrArray[0]);
-                tempString2 = String.format(tempStrArray[1]);
+                tempStrArray = milk.get(i).split(",");
+                tempString = tempStrArray[0];
+                tempString2 = tempStrArray[1];
                 String priceCount = tempStrArray[2].replace("=", "");
 
                 line1 = tempString.split(":");
                 line2 = tempString2.split(":");
-                String name = line1[0].trim()+":";
-                String priceName = line2[0].trim()+":";
-                String segmentOne = String.format(StringUtils.center( name + "%s", 13), line1[1].trim());
+                String name = line1[0].trim() + ":";
+                String priceName = line2[0].trim() + ":";
 
                 assemblerString = String.format("\n%s   %s" + spacer + "seen: %d times", StringUtils.center(name, 6), StringUtils.center(line1[1].trim(), 4), milkCount);
-                System.out.println(assemblerString);
-
-                String header = StringUtils.center(StringUtils.center(headerLine, 13) + StringUtils.center(spacer, 8) + StringUtils.center(headerLine, 13), 34);
-                System.out.println(header);
-
                 assemblerString2 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
 
-                String rowLine = StringUtils.center(rowDivider + spacer + rowDivider, 32);
-                System.out.println(assemblerString2);
-                System.out.println(rowLine);
+                allCharts.append(assemblerString + "\n")
+                        .append(header + "\n")
+                        .append(assemblerString2 + "\n")
+                        .append(rowLine + "\n");
             }
 
             if (i > 0 && i < milk.size()) {
-                tempStrArray = milk.get(i).toString().split(",");
-                tempString2 = String.format(tempStrArray[1]);
+                tempStrArray = milk.get(i).split(",");
+                tempString2 = tempStrArray[1];
                 String priceCount = tempStrArray[2].replace("=", "");
-
                 line2 = tempString2.split(":");
-
-                String priceName = line2[0].trim()+":";
-
-                assemblerString4 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
-                System.out.println(assemblerString4);
+                String priceName = line2[0].trim() + ":";
+                assemblerString3 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
+                allCharts.append(assemblerString3 + "\n");
             }
         }
-        return null;
     }
 
-    public String createBreadChart(ArrayList<String> bread) {
-        String[] tempStrArray = new String[bread.size()];
-        String[] line1 = new String[bread.size()];
-        String[] line2 = new String[bread.size()];
-
-        String tempString = "";
-        String tempString2 = "";
-        String assemblerString = "";
-        String assemblerString2 = "";
-        String assemblerString3 = "";
-        String assemblerString4 = "";
-
-        for (int i =0; i < bread.size(); i++) {
+    private void createBreadChart(ArrayList<String> bread) {
+        for (int i = 0; i < bread.size(); i++) {
             if (i == 0) {
-                tempStrArray = bread.get(i).toString().split(",");
-                tempString = String.format(tempStrArray[0]);
-                tempString2 = String.format(tempStrArray[1]);
+                tempStrArray = bread.get(i).split(",");
+                tempString = tempStrArray[0];
+                tempString2 = tempStrArray[1];
                 String priceCount = tempStrArray[2].replace("=", "");
 
                 line1 = tempString.split(":");
                 line2 = tempString2.split(":");
-                String name = line1[0].trim()+":";
-                String priceName = line2[0].trim()+":";
+                String name = line1[0].trim() + ":";
+                String priceName = line2[0].trim() + ":";
 
-
-                assemblerString = String.format("\n%s   %s" + spacer + "seen: %d times", StringUtils.center(name, 5), StringUtils.center(line1[1].trim(), 4), milkCount);
-                System.out.println(assemblerString);
-
-                String header = StringUtils.center(StringUtils.center(headerLine, 13) + StringUtils.center(spacer, 8) + StringUtils.center(headerLine, 13), 34);
-                System.out.println(header);
-
+                assemblerString = String.format("\n%s   %s" + spacer + "seen: %d times", StringUtils.center(name, 5), StringUtils.center(line1[1].trim(), 4), breadCount);
+                header = StringUtils.center(StringUtils.center(headerLine, 13) + StringUtils.center(spacer, 8) + StringUtils.center(headerLine, 13), 34);
                 assemblerString2 = String.format("%s   %s" + spacer + "seen: %s times", StringUtils.center(priceName, 6), StringUtils.center(line2[1].trim(), 4), priceCount);
 
-                String rowLine = StringUtils.center(rowDivider + spacer + rowDivider, 32);
-                System.out.println(assemblerString2);
-                System.out.println(rowLine);
+                allCharts.append(assemblerString + "\n")
+                        .append(header + "\n")
+                        .append(assemblerString2 + "\n")
+                        .append(rowLine + "\n");
             }
 
             if (i > 0 && i < bread.size()) {
-                tempStrArray = bread.get(i).toString().split(",");
-                tempString2 = String.format(tempStrArray[1]);
+                tempStrArray = bread.get(i).split(",");
+                tempString2 = tempStrArray[1];
                 String priceCount = tempStrArray[2].replace("=", "");
-
                 line2 = tempString2.split(":");
-
-                assemblerString4 = String.format("%s : %s" + spacer + "seen: %s times", StringUtils.center(line2[0], 6), StringUtils.center(line2[1], 4), priceCount);
-                System.out.println(assemblerString4);
+                assemblerString3 = String.format("%s : %s" + spacer + "seen: %s times", StringUtils.center(line2[0], 6), StringUtils.center(line2[1], 4), priceCount);
+                allCharts.append(assemblerString3 + "\n");
             }
         }
-        return null;
     }
 
-    public String createCookiesChart(ArrayList<String> cookies) {
-            String[] tempStrArray = new String[cookies.size()];
-            String[] line1 = new String[cookies.size()];
-            String[] line2 = new String[cookies.size()];
+    private void createCookiesChart(ArrayList<String> cookies) {
 
-            String tempString = "";
-            String tempString2 = "";
-            String assemblerString = "";
-            String assemblerString2 = "";
-            String assemblerString3 = "";
-            String assemblerString4 = "";
-
-            for (int i =0; i < cookies.size(); i++) {
-                if (i == 0) {
-                    tempStrArray = cookies.get(i).toString().split(",");
-                    tempString = String.format(tempStrArray[0]);
-                    tempString2 = String.format(tempStrArray[1]);
-                    String priceCount = tempStrArray[2].replace("=", "");
-
-                    line1 = tempString.split(":");
-                    line2 = tempString2.split(":");
-                    String name = line1[0].trim()+":";
-                    String priceName = line2[0].trim()+":";
-
-                    assemblerString = String.format("\n%s %s" + spacer + "seen: %d times", StringUtils.center(name, 3), StringUtils.center(line1[1].trim(), 4), milkCount);
-                    System.out.println(assemblerString);
-
-                    String header = StringUtils.center(StringUtils.center(headerLine, 13) + StringUtils.center(spacer, 8) + StringUtils.center(headerLine, 13), 34);
-                    System.out.println(header);
-
-                    assemblerString2 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
-
-                    String rowLine = StringUtils.center(rowDivider + spacer + rowDivider, 32);
-                    System.out.println(assemblerString2);
-                    System.out.println(rowLine);
-                }
-
-                if (i > 0 && i < cookies.size()) {
-                    tempStrArray = cookies.get(i).toString().split(",");
-                    tempString2 = String.format(tempStrArray[1]);
-                    String priceCount = tempStrArray[2].replace("=", "");
-
-                    line2 = tempString2.split(":");
-
-                    String priceName = line2[0].trim()+":";
-
-                    assemblerString4 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
-                    System.out.println(assemblerString4);
-                }
-            }
-            return null;
-    }
-
-    public String createApplesChart(ArrayList<String> apples) {
-        String[] tempStrArray = new String[apples.size()];
-        String[] line1 = new String[apples.size()];
-        String[] line2 = new String[apples.size()];
-
-        String tempString = "";
-        String tempString2 = "";
-        String assemblerString = "";
-        String assemblerString2 = "";
-        String assemblerString3 = "";
-        String assemblerString4 = "";
-
-        for (int i =0; i < apples.size(); i++) {
+        for (int i = 0; i < cookies.size(); i++) {
             if (i == 0) {
-                tempStrArray = apples.get(i).toString().split(",");
-                tempString = String.format(tempStrArray[0]);
-                tempString2 = String.format(tempStrArray[1]);
+                tempStrArray = cookies.get(i).split(",");
+                tempString = tempStrArray[0];
+                tempString2 = tempStrArray[1];
                 String priceCount = tempStrArray[2].replace("=", "");
 
                 line1 = tempString.split(":");
                 line2 = tempString2.split(":");
-                String name = line1[0].trim()+":";
-                String priceName = line2[0].trim()+":";
+                String name = line1[0].trim() + ":";
+                String priceName = line2[0].trim() + ":";
 
-                assemblerString = String.format("\n%s  %s" + spacer + "seen: %d times", StringUtils.center(name, 3), StringUtils.center(line1[1].trim(), 4), milkCount);
-                System.out.println(assemblerString);
+                assemblerString = String.format("\n%s %s" + spacer + "seen: %d times", StringUtils.center(name, 3), StringUtils.center(line1[1].trim(), 4), cookieCount);
+                assemblerString2 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
+                allCharts.append(assemblerString + "\n")
+                        .append(header + "\n")
+                        .append(assemblerString2 + "\n")
+                        .append(rowLine + "\n");
+            }
 
-                String header = StringUtils.center(StringUtils.center(headerLine, 13) + StringUtils.center(spacer, 8) + StringUtils.center(headerLine, 13), 34);
-                System.out.println(header);
+            if (i > 0 && i < cookies.size()) {
+                tempStrArray = cookies.get(i).split(",");
+                tempString2 = tempStrArray[1];
+                String priceCount = tempStrArray[2].replace("=", "");
+                line2 = tempString2.split(":");
+                String priceName = line2[0].trim() + ":";
+                assemblerString3 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
+                allCharts.append(assemblerString3 + "\n");
 
+            }
+        }
+    }
+
+    private void createApplesChart(ArrayList<String> apples) {
+
+        for (int i = 0; i < apples.size(); i++) {
+            if (i == 0) {
+                tempStrArray = apples.get(i).split(",");
+                tempString = tempStrArray[0];
+                tempString2 = tempStrArray[1];
+                String priceCount = tempStrArray[2].replace("=", "");
+
+                line1 = tempString.split(":");
+                line2 = tempString2.split(":");
+                String name = line1[0].trim() + ":";
+                String priceName = line2[0].trim() + ":";
+
+                assemblerString = String.format("\n%s  %s" + spacer + "seen: %d times", StringUtils.center(name, 3), StringUtils.center(line1[1].trim(), 4), appleCount);
                 assemblerString2 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
 
-                String rowLine = StringUtils.center(rowDivider + spacer + rowDivider, 32);
-                System.out.println(assemblerString2);
-                System.out.println(rowLine);
+                allCharts.append(assemblerString + "\n")
+                        .append(header + "\n")
+                        .append(assemblerString2 + "\n")
+                        .append(rowLine + "\n");
             }
 
             if (i > 0 && i < apples.size()) {
-                tempStrArray = apples.get(i).toString().split(",");
-                tempString2 = String.format(tempStrArray[1]);
+                tempStrArray = apples.get(i).split(",");
+                tempString2 = tempStrArray[1];
                 String priceCount = tempStrArray[2].replace("=", "");
-
                 line2 = tempString2.split(":");
-
-                String priceName = line2[0].trim()+":";
-
-                assemblerString4 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
-                System.out.println(assemblerString4);
+                String priceName = line2[0].trim() + ":";
+                assemblerString3 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
+                allCharts.append(assemblerString3 + "\n");
             }
         }
-        return null;
     }
 }

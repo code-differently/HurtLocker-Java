@@ -68,20 +68,17 @@ public class chartBuilder {
                 assemblerString = String.format("\n%s   %s" + spacer + "seen: %d times", StringUtils.center(name, 6), StringUtils.center(line1[1].trim(), 4), milkCount);
                 assemblerString2 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
 
-                allCharts.append(assemblerString + "\n")
-                        .append(header + "\n")
-                        .append(assemblerString2 + "\n")
-                        .append(rowLine + "\n");
+                allCharts.append(assemblerString).append("\n").append(header).append("\n").append(assemblerString2).append("\n").append(rowLine).append("\n");
             }
 
-            if (i > 0 && i < milk.size()) {
+            if (i > 0) {
                 tempStrArray = milk.get(i).split(",");
                 tempString2 = tempStrArray[1];
                 String priceCount = tempStrArray[2].replace("=", "");
                 line2 = tempString2.split(":");
                 String priceName = line2[0].trim() + ":";
                 assemblerString3 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
-                allCharts.append(assemblerString3 + "\n");
+                allCharts.append(assemblerString3).append("\n");
             }
         }
     }
@@ -103,19 +100,16 @@ public class chartBuilder {
                 header = StringUtils.center(StringUtils.center(headerLine, 13) + StringUtils.center(spacer, 8) + StringUtils.center(headerLine, 13), 34);
                 assemblerString2 = String.format("%s   %s" + spacer + "seen: %s times", StringUtils.center(priceName, 6), StringUtils.center(line2[1].trim(), 4), priceCount);
 
-                allCharts.append(assemblerString + "\n")
-                        .append(header + "\n")
-                        .append(assemblerString2 + "\n")
-                        .append(rowLine + "\n");
+                allCharts.append(assemblerString).append("\n").append(header).append("\n").append(assemblerString2).append("\n").append(rowLine).append("\n");
             }
 
-            if (i > 0 && i < bread.size()) {
+            if (i > 0) {
                 tempStrArray = bread.get(i).split(",");
                 tempString2 = tempStrArray[1];
                 String priceCount = tempStrArray[2].replace("=", "");
                 line2 = tempString2.split(":");
                 assemblerString3 = String.format("%s : %s" + spacer + "seen: %s times", StringUtils.center(line2[0], 6), StringUtils.center(line2[1], 4), priceCount);
-                allCharts.append(assemblerString3 + "\n");
+                allCharts.append(assemblerString3).append("\n");
             }
         }
     }
@@ -136,20 +130,17 @@ public class chartBuilder {
 
                 assemblerString = String.format("\n%s %s" + spacer + "seen: %d times", StringUtils.center(name, 3), StringUtils.center(line1[1].trim(), 4), cookieCount);
                 assemblerString2 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
-                allCharts.append(assemblerString + "\n")
-                        .append(header + "\n")
-                        .append(assemblerString2 + "\n")
-                        .append(rowLine + "\n");
+                allCharts.append(assemblerString).append("\n").append(header).append("\n").append(assemblerString2).append("\n").append(rowLine).append("\n");
             }
 
-            if (i > 0 && i < cookies.size()) {
+            if (i > 0) {
                 tempStrArray = cookies.get(i).split(",");
                 tempString2 = tempStrArray[1];
                 String priceCount = tempStrArray[2].replace("=", "");
                 line2 = tempString2.split(":");
                 String priceName = line2[0].trim() + ":";
                 assemblerString3 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
-                allCharts.append(assemblerString3 + "\n");
+                allCharts.append(assemblerString3).append("\n");
 
             }
         }
@@ -172,20 +163,17 @@ public class chartBuilder {
                 assemblerString = String.format("\n%s  %s" + spacer + "seen: %d times", StringUtils.center(name, 3), StringUtils.center(line1[1].trim(), 4), appleCount);
                 assemblerString2 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
 
-                allCharts.append(assemblerString + "\n")
-                        .append(header + "\n")
-                        .append(assemblerString2 + "\n")
-                        .append(rowLine + "\n");
+                allCharts.append(assemblerString).append("\n").append(header).append("\n").append(assemblerString2).append("\n").append(rowLine).append("\n");
             }
 
-            if (i > 0 && i < apples.size()) {
+            if (i > 0) {
                 tempStrArray = apples.get(i).split(",");
                 tempString2 = tempStrArray[1];
                 String priceCount = tempStrArray[2].replace("=", "");
                 line2 = tempString2.split(":");
                 String priceName = line2[0].trim() + ":";
                 assemblerString3 = String.format("%s  %s" + spacer + "seen: %s times", StringUtils.center(priceName, 7), StringUtils.center(line2[1].trim(), 4), priceCount);
-                allCharts.append(assemblerString3 + "\n");
+                allCharts.append(assemblerString3).append("\n");
             }
         }
     }

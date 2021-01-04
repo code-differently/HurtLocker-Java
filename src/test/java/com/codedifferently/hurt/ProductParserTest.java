@@ -1,5 +1,6 @@
 package com.codedifferently.hurt;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class ProductParserTest {
@@ -7,5 +8,9 @@ public class ProductParserTest {
     @Test
     public void findFieldByKeyValue(){
         ProductParser productParser =new ProductParser();
+
+        String expected ="naMe:Milk";
+        String actual = productParser.findFieldByKeyValue("naMe",sampleItem);
+        Assert.assertEquals(expected,actual);
     }
 }

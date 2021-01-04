@@ -10,9 +10,13 @@ public class Main {
         return result;
     }
 
-    public static void main(String[] args) throws Exception{
-        String output = (new Main()).readRawDataToString();
-        System.out.println(output);
+    public static void main(String[] args){
+        try {
+            String output = (new Main()).readRawDataToString();
+            System.out.println(output);
+        }catch (Exception ex){
+            System.out.println("Sorry, File not found");
+        }
 
     }
 }

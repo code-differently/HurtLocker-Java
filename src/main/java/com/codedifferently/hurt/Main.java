@@ -32,15 +32,15 @@ public class Main {
                 .split("##");
     }
 
-    private Map<String, Integer> getItemMap(String[] s) {
+    private Map<String, Integer> getItemMap(String[] cleanStringArray) {
         Map<String, Integer> itemMap = new HashMap<>();
-        for (String value : s) {
-            String[] temp = value.split(",");
+        for (String value : cleanStringArray) {
+            String[] tempArray = value.split(",");
             StringBuilder tempString = new StringBuilder();
 
             // the hash Map-uh will contain a representation of each distinct
             // occurrence of a item with it's price
-            for (String z : temp) {
+            for (String z : tempArray) {
                 if (z.contains("null"))
                     errCount++;
                 if (z.startsWith("Name") || z.startsWith("Price")) {
@@ -58,7 +58,7 @@ public class Main {
             }
         }
 
-        // iterate the map and tally a sum of all distinct instances of the items
+        // iterate the map and tally a sum (count) of each price-point tallied
         for (String currentKey : itemMap.keySet()) {
             int qValue = itemMap.get(currentKey);
             if (currentKey.contains("Apples"))
@@ -76,8 +76,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         String outputString = (new Main()).readRawDataToString();
-        String[] s = new Main().cleanItUp(outputString);
-        Map<String, Integer> itemMap = new Main().getItemMap(s);
+        String[] cleanStringArray = new Main().cleanItUp(outputString);
+        Map<String, Integer> itemMap = new Main().getItemMap(cleanStringArray);
         String chart = new chartBuilder().outputChart(itemMap);
         System.out.println(chart);
     }

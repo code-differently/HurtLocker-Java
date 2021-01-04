@@ -32,7 +32,7 @@ public class Main {
         return s;
     }
 
-    public Map getItemMap(String[] s) {
+    public Map<String, Integer> getItemMap(String[] s) {
         Map<String, Integer> itemMap = new HashMap<>();
         for (int i = 0; i < s.length; i++) {
             String[] temp = s[i].split(",");
@@ -83,19 +83,19 @@ public class Main {
     }
 
     public int getBreadCount() {
-        return this.breadCount;
+        return breadCount;
     }
 
     public int getAppleCount() {
-        return this.appleCount;
+        return appleCount;
     }
 
     public int getCookieCount() {
-        return this.cookieCount;
+        return cookieCount;
     }
 
     public int getErrCount() {
-        return this.errCount;
+        return errCount;
     }
 
 
@@ -103,7 +103,7 @@ public class Main {
     public static void main(String[] args) throws Exception{
         String outputString = (new Main()).readRawDataToString();
         String[] s = new Main().cleanItUp(outputString);
-        Map itemMap = new Main().getItemMap(s);
+        Map<String, Integer> itemMap = new Main().getItemMap(s);
         String output = new chartBuilder().outputChart(itemMap);
     }
 }

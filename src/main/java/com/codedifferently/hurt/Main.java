@@ -14,17 +14,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
         String output = (new Main()).readRawDataToString();
-        ItemParser itemParser = new ItemParser();
-        ArrayList<String> rawData = itemParser.rawDataReader(output);
-        rawData.forEach((line) -> {
-            /*
-            arrange the value from rawData to their respective key
-            in the item object
-             */
-            Item item = itemParser.convertStringToItem(line);
-            System.out.println(item.toString());
-            }
-        );
+        OutputFormater outputFormater = new OutputFormater(output);
+        System.out.println(outputFormater.report());
 
     }
 }

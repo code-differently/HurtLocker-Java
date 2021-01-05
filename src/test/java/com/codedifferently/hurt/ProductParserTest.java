@@ -2,6 +2,7 @@ package com.codedifferently.hurt;
 
 import com.codedifferently.hurt.Exception.ProductParserMissingKeyException;
 import com.codedifferently.hurt.Exception.ProductParserMissingValueException;
+import com.codedifferently.hurt.Exception.ProductParserProductCreationException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -44,7 +45,7 @@ public class ProductParserTest {
     }
 
     @Test
-    public void takeProductObjectFromStringTest1(){
+    public void takeProductObjectFromStringTest1() throws ProductParserMissingValueException, ProductParserProductCreationException {
         ProductParser productParser =new ProductParser();
         HashMap<String,String> data = new HashMap<>();
 

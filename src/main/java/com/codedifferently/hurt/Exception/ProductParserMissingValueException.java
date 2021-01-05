@@ -1,4 +1,4 @@
 package com.codedifferently.hurt.Exception;
 
-public class ProductParserMissingValueException extends Throwable {
+public class ProductParserMissingValueException extends Exception {
 }

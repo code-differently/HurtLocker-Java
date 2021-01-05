@@ -19,14 +19,14 @@ public ProductParser(){
 }
 
 
-    public Product takeProductObjectFromString(String data) throws ProductParserMissingValueException, ProductParserProductCreationException {
+    public Product takeProductObjectFromString(String data) throws  ProductParserProductCreationException {
         HashMap<String,String> productData = new HashMap<>();
         try {
             for (String key : ListOfKeys) {
                 String value =  findFieldByKeyValue(key,data);
                 productData.put(key,value);
             }
-            return null;
+            return new Product(productData);
         }catch(ProductParserMissingKeyException exception){
                 throw new ProductParserProductCreationException();
         }

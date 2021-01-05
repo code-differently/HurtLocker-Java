@@ -2,11 +2,37 @@ package com.codedifferently.hurt;
 
 import com.codedifferently.hurt.Exception.ProductParserMissingKeyException;
 import com.codedifferently.hurt.Exception.ProductParserMissingValueException;
+import com.codedifferently.hurt.Exception.ProductParserProductCreationException;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ProductParser {
+private ArrayList<String> ListOfKeys;
+public ProductParser(){
+    ListOfKeys = new ArrayList<>();
 
-    public Product takeProductObjectFromString(String data){
-        return null;
+    ListOfKeys.add("naMe");
+    ListOfKeys.add("price");
+    ListOfKeys.add("type");
+    ListOfKeys.add("expiration");
+}
+
+
+    public Product takeProductObjectFromString(String data) throws ProductParserMissingValueException, ProductParserProductCreationException {
+        HashMap<String,String> productData = new HashMap<>();
+        try {
+            for (String key : ListOfKeys) {
+                String value =  findFieldByKeyValue(key,data);
+                productData.put(key,value);
+            }
+            return null;
+        }catch(ProductParserMissingKeyException exception){
+                throw new ProductParserProductCreationException();
+        }
+        catch(ProductParserMissingValueException exception){
+            throw new ProductParserProductCreationException();
+        }
     }
 
 

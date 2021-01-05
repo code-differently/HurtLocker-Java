@@ -1,16 +1,18 @@
 package com.codedifferently.hurt;
 
+import java.util.Map;
+
 public class Product {
     private String name;
     private Double price;
     private String type;
     private String expiration;
 
-    public Product(String name, Double price, String type, String expiration) {
-        this.name = name;
-        this.price = price;
-        this.type = type;
-        this.expiration = expiration;
+    public Product(Map<String,String> rawDataMap) {
+        this.name = rawDataMap.get("name");
+        this.price = Double.parseDouble(rawDataMap.get("price"));
+        this.type = rawDataMap.get("type");
+        this.expiration = rawDataMap.get("expiration");
     }
 
     public String getName() {

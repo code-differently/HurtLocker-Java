@@ -5,6 +5,8 @@ import com.codedifferently.hurt.Exception.ProductParserMissingValueException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.HashMap;
+
 public class ProductParserTest {
     private String sampleItem= "naMe:Milk;price:3.23;type:Food;expiration:1/25/2016";
     @Test
@@ -44,8 +46,14 @@ public class ProductParserTest {
     @Test
     public void takeProductObjectFromStringTest1(){
         ProductParser productParser =new ProductParser();
+        HashMap<String,String> data = new HashMap<>();
 
-        Product expected = new Product("Milk",3.23,"Food","1/25/2016");
+        data.put("naMe","Milk");
+        data.put("price","3.23");
+        data.put("type","Food");
+        data.put("expiration","1/25/2016");
+
+        Product expected = new Product(data);
         Product actual = productParser.takeProductObjectFromString(sampleItem);
 
         Assert.assertEquals(expected.toString(),actual.toString());

@@ -4,6 +4,12 @@ import com.codedifferently.hurt.Exception.ProductParserMissingKeyException;
 import com.codedifferently.hurt.Exception.ProductParserMissingValueException;
 
 public class ProductParser {
+
+    public Product takeProductObjectFromString(String data){
+        return null;
+    }
+
+
     public String findFieldByKeyValue(String key,String data) throws ProductParserMissingKeyException, ProductParserMissingValueException {
         //  split the data into an array
         String[] dataArray = data.split("[^0-9a-zA-Z#./;]+");

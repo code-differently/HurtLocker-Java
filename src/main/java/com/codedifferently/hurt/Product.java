@@ -44,4 +44,14 @@ public class Product {
     public void setExpiration(String expiration) {
         this.expiration = expiration;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", type='" + type + '\'' +
+                ", expiration='" + expiration + '\'' +
+                '}';
+    }
 }

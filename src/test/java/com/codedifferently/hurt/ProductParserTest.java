@@ -40,4 +40,14 @@ public class ProductParserTest {
         productParser.findFieldByKeyValue("naMe",missingValue);
 
     }
+
+    @Test
+    public void takeProductObjectFromStringTest1(){
+        ProductParser productParser =new ProductParser();
+
+        Product expected = new Product("Milk",3.23,"Food","1/25/2016");
+        Product actual = productParser.takeProductObjectFromString(sampleItem);
+
+        Assert.assertEquals(expected.toString(),actual.toString());
+    }
 }

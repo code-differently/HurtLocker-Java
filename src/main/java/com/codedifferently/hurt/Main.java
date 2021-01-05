@@ -12,8 +12,8 @@ public class Main {
 
     public static void main(String[] args){
         try {
-            String output = (new Main()).readRawDataToString();
-            System.out.println(output);
+            String outputString = (new Main()).readRawDataToString();
+            System.out.println(outputString);
         }catch (Exception ex){
             System.out.println("Sorry, File not found");
         }

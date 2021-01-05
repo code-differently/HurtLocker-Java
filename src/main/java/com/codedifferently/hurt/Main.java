@@ -2,6 +2,8 @@ package com.codedifferently.hurt;
 
 import org.apache.commons.io.IOUtils;
 
+import java.util.ArrayList;
+
 public class Main {
 
     public String readRawDataToString() throws Exception{
@@ -12,7 +14,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
         String output = (new Main()).readRawDataToString();
-        System.out.println(output);
+        OutputFormater outputFormater = new OutputFormater(output);
+        System.out.println(outputFormater.report());
 
     }
 }

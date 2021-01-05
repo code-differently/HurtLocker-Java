@@ -8,7 +8,7 @@ import org.junit.Test;
 public class ProductParserTest {
     private String sampleItem= "naMe:Milk;price:3.23;type:Food;expiration:1/25/2016";
     @Test
-    public void findFieldByKeyValueTest1() throws ProductParserMissingKeyException {
+    public void findFieldByKeyValueTest1() throws ProductParserMissingValueException, ProductParserMissingKeyException {
         ProductParser productParser =new ProductParser();
 
         String expected ="Milk";
@@ -17,7 +17,7 @@ public class ProductParserTest {
     }
 
     @Test
-    public void findFieldByKeyValueTest2() throws ProductParserMissingKeyException {
+    public void findFieldByKeyValueTest2() throws ProductParserMissingValueException, ProductParserMissingKeyException {
         ProductParser productParser =new ProductParser();
 
         Double expected =3.23;
@@ -26,7 +26,7 @@ public class ProductParserTest {
     }
 
     @Test(expected = ProductParserMissingKeyException.class)
-    public void findFieldByKeyValueTest3() throws ProductParserMissingKeyException {
+    public void findFieldByKeyValueTest3() throws ProductParserMissingValueException, ProductParserMissingKeyException {
         ProductParser productParser =new ProductParser();
         String missingKey = "naMe:;price:3.23;type:Food;expiration:1/25/2016";
         productParser.findFieldByKeyValue("naMe",missingKey);
@@ -34,10 +34,10 @@ public class ProductParserTest {
     }
 
     @Test(expected = ProductParserMissingValueException.class)
-    public void findFieldByKeyValueTest4() throws ProductParserMissingValueException, ProductParserMissingKeyException {
+    public void findFieldByKeyValueTest4() throws  ProductParserMissingValueException, ProductParserMissingKeyException {
         ProductParser productParser =new ProductParser();
-        String missingValue = "naMe:Milk;price:;type:Food;expiration:1/25/2016";
-        productParser.findFieldByKeyValue("price",missingValue);
+        String missingValue = "price:;type:Food;expiration:1/25/2016";
+        productParser.findFieldByKeyValue("naMe",missingValue);
 
     }
 }

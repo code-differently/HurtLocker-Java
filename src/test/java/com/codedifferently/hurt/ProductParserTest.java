@@ -1,5 +1,7 @@
 package com.codedifferently.hurt;
 
+import com.codedifferently.hurt.Exception.ProductParserMissingKeyException;
+import com.codedifferently.hurt.Exception.ProductParserMissingValueException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,8 +28,16 @@ public class ProductParserTest {
     @Test(expected = ProductParserMissingKeyException.class)
     public void findFieldByKeyValueTest3() throws ProductParserMissingKeyException {
         ProductParser productParser =new ProductParser();
-        String missingValue = "naMe:;price:3.23;type:Food;expiration:1/25/2016";
-        productParser.findFieldByKeyValue("naMe",missingValue);
+        String missingKey = "naMe:;price:3.23;type:Food;expiration:1/25/2016";
+        productParser.findFieldByKeyValue("naMe",missingKey);
+
+    }
+
+    @Test(expected = ProductParserMissingValueException.class)
+    public void findFieldByKeyValueTest4() throws ProductParserMissingValueException, ProductParserMissingKeyException {
+        ProductParser productParser =new ProductParser();
+        String missingValue = "naMe:Milk;price:;type:Food;expiration:1/25/2016";
+        productParser.findFieldByKeyValue("price",missingValue);
 
     }
 }

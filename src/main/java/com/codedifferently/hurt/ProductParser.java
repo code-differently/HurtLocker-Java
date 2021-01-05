@@ -1,5 +1,7 @@
 package com.codedifferently.hurt;
 
+import com.codedifferently.hurt.Exception.ProductParserMissingKeyException;
+
 public class ProductParser {
     public String findFieldByKeyValue(String key,String data) throws ProductParserMissingKeyException {
         //  split the data into an array

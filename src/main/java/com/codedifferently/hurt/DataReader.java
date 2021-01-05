@@ -9,8 +9,7 @@ public class DataReader {
 
 	public ArrayList<String> rawDataReader(String data){
 		String[] dataArray = data.split("##");
-		ArrayList<String> dataList = new ArrayList<>(Arrays.asList(dataArray));
-		return  dataList;
+		return new ArrayList<>(Arrays.asList(dataArray));
 	}
 
 

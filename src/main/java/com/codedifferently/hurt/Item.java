@@ -1,9 +1,10 @@
 package com.codedifferently.hurt;
 
 /* Step 1: create private fields for name, price, type and date
-     Step 2: create getters and setters
+     Step 2: Create constructor that takes in a mapcreate getters and setters
      Step 3: Solid principle the class(Item) has the single responsibility for each set of string?
-     Step 4: Create constructor that takes in a map      Step 4: Create constructor that takes in a map
+     Step 4: Create constructor that takes in a map
+
 
    */
 

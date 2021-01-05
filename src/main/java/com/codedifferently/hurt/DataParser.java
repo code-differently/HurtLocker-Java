@@ -12,9 +12,11 @@ public class DataParser {
     public ArrayList<String> rawDataParser(String input) {
         String[] inputArray = input.split("##");
         ArrayList<String> inputList = new ArrayList<>(Arrays.asList(inputArray));
+        String inputSpecialChars = input.replaceAll("[^a-zA-Z0-9]+","");
+        inputSpecialChars = inputSpecialChars.toLowerCase();
         return inputList;
-    }
+
+       }
+    }S
 
 
-
-}

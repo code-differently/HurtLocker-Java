@@ -39,7 +39,7 @@ public class Main {
             StringBuilder tempString = new StringBuilder();
 
             // the hash Map-uh will contain a representation of each distinct
-            // occurrence of a item with it's price
+            // occurrence of an item with it's price
             for (String z : tempArray) {
                 if (z.contains("null"))
                     errCount++;
